@@ -49,43 +49,6 @@ public class BookResource {
 		book.setKeywords("Tech");
 		books.add(book);
 	}
-	
-	public BookResource() {
-	}
-	
-	@GET
-	@Path("/session/{sessionId}")
-	public String bySession(
-			@PathParam("sessionId") String sessionId) {
-		
-		logger.debug("session id: " + sessionId);
-		
-		Subject requestSubject = new Subject.Builder().sessionId(sessionId).buildSubject();
-		requestSubject.getSession(false).touch();
-		logger.info("requestSubject principal: " + requestSubject.getPrincipal());
-		logger.info("Last updated: " + requestSubject.getSession().getLastAccessTime());
-
-		return requestSubject.getPrincipal().toString();
-	}
-	
-	@GET
-	@Path("/username/{username}/password/{password}")
-	public String getToken(
-			@PathParam("username") String username,
-			@PathParam("password") String password) {
-
-		logger.debug("Username: " + username);
-		logger.debug("Password: " + password);
-		
-		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-		Subject.Builder builder = new Subject.Builder();
-		Subject currentUser = builder.buildSubject();
-		currentUser.login(token);
-		String sessionId = currentUser.getSession(true).getId().toString();
-		
-		logger.info("Session id: " + sessionId);
-		return sessionId;
-	}
 			
 	@GET
 	public List<Book> getBooks() {
