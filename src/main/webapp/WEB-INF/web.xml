@@ -23,4 +23,18 @@
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 
+	<filter>
+		<filter-name>ShiroFilter</filter-name>
+		<filter-class>it.dariofabbri.test.addressbook.rest.filter.ShiroFilter</filter-class>
+		<init-param>
+			<param-name>exclude</param-name>
+			<param-value>.*/security/newsession.*</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>ShiroFilter</filter-name>
+		<url-pattern>/api/*</url-pattern>
+	</filter-mapping>
+	
 </web-app>
