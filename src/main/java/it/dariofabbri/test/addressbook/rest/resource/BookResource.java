@@ -1,4 +1,4 @@
-package it.dariofabbri.test.addressbook.rest.service;
+package it.dariofabbri.test.addressbook.rest.resource;
 
 
 import it.dariofabbri.test.addressbook.rest.dto.Book;
@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,15 +50,16 @@ public class BookResource {
 	}
 			
 	@GET
-	public List<Book> getBooks() {
+	public Response getBooks() {
 
 		logger.debug("getBooks called!");
 		
-		UsernamePasswordToken token = new UsernamePasswordToken("dario", "password1");
 		Subject currentUser = SecurityUtils.getSubject();
-		currentUser.login(token);
+		if(!currentUser.isPermitted("books:getlist")) {
+			return Response.status(Status.UNAUTHORIZED).entity("Operation not permitted.").build();
+		}
 		
-		return books;
+		return Response.ok().entity(books).build();
 	}
 	
 	@DELETE

@@ -1,4 +1,4 @@
-package it.dariofabbri.test.addressbook.rest.service;
+package it.dariofabbri.test.addressbook.rest.resource;
 
 
 import javax.ws.rs.GET;

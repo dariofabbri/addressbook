@@ -1,8 +1,9 @@
 package it.dariofabbri.test.addressbook.rest.filter;
 
-import it.dariofabbri.test.addressbook.rest.service.Security;
+import it.dariofabbri.test.addressbook.rest.resource.Security;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
@@ -12,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -49,8 +51,10 @@ public class ShiroFilter implements Filter {
 
 		// Check request type.
 		//
-		if(!(request instanceof HttpServletRequest))
-			throw new ServletException("Unexpected request class detected.");
+		if(!(request instanceof HttpServletRequest)) {
+			raiseSecurityError(response, "Unexpected request class detected.");
+			return;
+		}
 		HttpServletRequest hsr = (HttpServletRequest)request;
 		
 		// Try to match URL against exclude pattern.
@@ -69,18 +73,21 @@ public class ShiroFilter implements Filter {
 		// Security token must be present.
 		//
 		if(token == null) {
-			throw new ServletException("Null token detected.");
+			raiseSecurityError(response, "Null token detected");
+			return;
 		}
 		
 		// Check if the passed token is associated with a valid session.
 		//
 		try {
 			Session session = SecurityUtils.getSecurityManager().getSession(new DefaultSessionKey(token));
-			if(session == null)
-				throw new ServletException("Invalid session token."); 
+			if(session == null) {
+				raiseSecurityError(response, "Invalid session token.");
+				return;
+			}
 		} catch(SessionException se) {
-			logger.info("Invalid session token. Cause: " + se.getMessage());
-			throw new ServletException("Invalid session token. Cause: " + se.getMessage());
+			raiseSecurityError(response, "Invalid session token. Cause: " + se.getMessage());
+			return;
 		}
 		
 		Subject requestSubject = new Subject.Builder().sessionId(token).buildSubject();		
@@ -91,6 +98,19 @@ public class ShiroFilter implements Filter {
 		}
 		finally {
 			threadState.clear();
+		}
+	}
+
+	private void raiseSecurityError(ServletResponse response, String message) {
+
+		try {
+			HttpServletResponse hsr = (HttpServletResponse)response;
+			hsr.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			OutputStreamWriter osw = new OutputStreamWriter(hsr.getOutputStream());
+			osw.write(message);
+			osw.flush();
+		} catch(Exception e) {
+			logger.error("Exception caught while returning security error.", e);
 		}
 	}
 

@@ -10,7 +10,7 @@ import com.sun.jersey.api.core.PackagesResourceConfig;
 public class Application extends PackagesResourceConfig {
 
 	public Application() {
-		super("it.dariofabbri.test.addressbook.rest.service");
+		super("it.dariofabbri.test.addressbook.rest.resource");
 		
 		Factory<org.apache.shiro.mgt.SecurityManager> factory = 
 				new IniSecurityManagerFactory("classpath:shiro.ini");
