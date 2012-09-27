@@ -1,6 +1,6 @@
 package it.dariofabbri.test.addressbook.rest.dto;
 
-public class BooleanResult {
+public class BooleanDTO {
 
 	private Boolean result;
 

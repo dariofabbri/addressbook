@@ -28,7 +28,7 @@
 		<filter-class>it.dariofabbri.test.addressbook.rest.filter.ShiroFilter</filter-class>
 		<init-param>
 			<param-name>exclude</param-name>
-			<param-value>.*/security/newsession.*</param-value>
+			<param-value>.*/security.*</param-value>
 		</init-param>
 	</filter>
 

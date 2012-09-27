@@ -1,7 +1,7 @@
 package it.dariofabbri.test.addressbook.rest.resource;
 
 
-import it.dariofabbri.test.addressbook.rest.dto.Book;
+import it.dariofabbri.test.addressbook.rest.dto.BookDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +27,12 @@ public class BookResource {
 
 	private static final Logger logger = LoggerFactory.getLogger(BookResource.class);
 	
-	private static List<Book> books;
+	private static List<BookDTO> books;
 	
 	static {
-		books = new ArrayList<Book>();
+		books = new ArrayList<BookDTO>();
 
-		Book book = new Book();
+		BookDTO book = new BookDTO();
 		book.setId(1);
 		book.setAuthor("Dario Fabbri");
 		book.setTitle("Best tutorial ever");
@@ -40,7 +40,7 @@ public class BookResource {
 		book.setKeywords("Tech");
 		books.add(book);
 		
-		book = new Book();
+		book = new BookDTO();
 		book.setId(2);
 		book.setAuthor("Gino Pilota");
 		book.setTitle("The truth on JavaScript");
@@ -67,8 +67,8 @@ public class BookResource {
 	public Response deleteBook(@PathParam("id") Integer id) {
 		logger.debug("deleteBook called!");
 		
-		Book bookToBeDeleted = null;
-		for(Book book : books) {
+		BookDTO bookToBeDeleted = null;
+		for(BookDTO book : books) {
 			if(book.getId().equals(id)) {
 				bookToBeDeleted = book;
 			}
@@ -85,7 +85,7 @@ public class BookResource {
 	
 	@POST
 	@Consumes("application/json")
-	public Response createBook(Book book) {
+	public Response createBook(BookDTO book) {
 		
 		logger.debug("createBook called!");
 		

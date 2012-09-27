@@ -2,7 +2,7 @@ package it.dariofabbri.test.addressbook.rest.dto;
 
 
 
-public class Book {
+public class BookDTO {
 
 	private Integer id;
 	private String title;

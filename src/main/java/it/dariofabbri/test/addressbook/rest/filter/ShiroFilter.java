@@ -1,6 +1,6 @@
 package it.dariofabbri.test.addressbook.rest.filter;
 
-import it.dariofabbri.test.addressbook.rest.resource.Security;
+import it.dariofabbri.test.addressbook.rest.resource.SecurityResource;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 public class ShiroFilter implements Filter {
 
-	private static final Logger logger = LoggerFactory.getLogger(Security.class);
+	private static final Logger logger = LoggerFactory.getLogger(SecurityResource.class);
 
 	protected static final String SECURITY_TOKEN = "X-Security-Token";
 	private Pattern excludePattern = null;
@@ -70,7 +70,7 @@ public class ShiroFilter implements Filter {
 		String token = hsr.getHeader(SECURITY_TOKEN);
 		logger.debug("Passed security token: " + token);
 
-		// Security token must be present.
+		// SecurityResource token must be present.
 		//
 		if(token == null) {
 			raiseSecurityError(response, "Null token detected");
