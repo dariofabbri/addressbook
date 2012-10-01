@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Sample menu bar test page</title>
+		<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.24.custom.css" rel="stylesheet" />
+		<link type="text/css" href="css/jquery.ui.menubar.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.core.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.menu.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.menubar.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.position.js"></script>
+		<script type="text/javascript">
+		$(function() {
+		    function select(event, ui) {
+		        alert("Selected: " + ui.item.text());
+		    }
+		    $("#menubar").menubar({
+		        position: {
+		            within: $("#demo-frame").add(window).first()
+		        },
+		        select: select
+		    });
+		});		
+		</script>
+	</head>
+	<body>
+		<div>
+			<ul id="menubar">
+				<li>
+					<a href="#File">File</a>
+					<ul>
+						<li><a href="#File1">File1</a></li>
+					</ul>
+				</li>
+				<li><a href="#Personale">Personale</a></li>
+				<li><a href="#Commerciale">Commerciale</a></li>
+				<li><a href="#Operativo">Operativo</a></li>
+				<li><a href="#Sala operativa">Sala operativa</a></li>
+				<li><a href="#Pattugliamento">Pattugliamento</a></li>
+				<li><a href="#Contazione">Contazione</a></li>
+				<li><a href="#Impostazioni">Impostazioni</a></li>
+				<li><a href="#Strumenti">Strumenti</a></li>
+				<li><a href="#Finestre">Finestre</a></li>
+				<li><a href="#Aiuto">?</a></li>
+			</ul>
+		</div>
+	</body>
+</html>
+
+
