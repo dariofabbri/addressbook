@@ -2,3 +2,50 @@ body {
     font-family: arial, helvetica, sans-serif;
     font-size: 62.5%; /* Causes base font size to be ~10px */
 }
+
+/* Site wide styles */
+label {
+    width: 120px;
+    font-weight: bold;
+    display:block;
+    float: left;
+    line-height: 1.8em;
+    text-align: right;
+}
+input[type=text], input[type=password], textarea {
+    width: 175px;
+    margin-left: 5px;
+}
+
+/* Login Page Styles */
+#login #content {
+    width: 400px;
+    margin: 20px auto;
+}
+#login section {
+    font-size: 1.4em;
+    width: 400px;
+    background-color: #ccc;
+    position: relative;
+    z-index: 1003;
+}
+#login section p {
+    padding-bottom: 20px;
+}
+#login p.ui-state-error {
+    padding: 5px;
+    display: none;
+}
+#login header, #login section div.ui-widget-content {
+    padding: 12px;
+}
+#login section form div {
+    padding: 8px 0px;
+}
+
+#login #btnLogin {
+}
+
+#login .ui-widget-overlay {
+    z-index: 1002;
+}

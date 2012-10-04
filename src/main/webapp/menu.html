@@ -5,15 +5,15 @@
 <title>Sample menu bar test page</title>
 <link type="text/css" href="css/app.css" rel="stylesheet" />
 <link type="text/css" href="css/themes/base/jquery.ui.all.css" rel="stylesheet" />
-<script type="text/javascript" src="js/jquery/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="js/ui/jquery.ui.core.js"></script>
-<script type="text/javascript" src="js/ui/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="js/ui/jquery.ui.menu.js"></script>
-<script type="text/javascript" src="js/ui/jquery.ui.menubar.js"></script>
-<script type="text/javascript" src="js/ui/jquery.ui.position.js"></script>
-<script type="text/javascript" src="js/ui/jquery.ui.button.js"></script>
-<script type="text/javascript" src="js/ui/jquery.ui.effect.js"></script>
-<script type="text/javascript" src="js/ui/jquery.ui.effect-shake.js"></script>
+<script type="text/javascript" src="lib/jquery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="lib/ui/jquery.ui.core.js"></script>
+<script type="text/javascript" src="lib/ui/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="lib/ui/jquery.ui.menu.js"></script>
+<script type="text/javascript" src="lib/ui/jquery.ui.menubar.js"></script>
+<script type="text/javascript" src="lib/ui/jquery.ui.position.js"></script>
+<script type="text/javascript" src="lib/ui/jquery.ui.button.js"></script>
+<script type="text/javascript" src="lib/ui/jquery.ui.effect.js"></script>
+<script type="text/javascript" src="lib/ui/jquery.ui.effect-shake.js"></script>
 
 <script type="text/javascript">
 	$(function() {
@@ -35,40 +35,21 @@
 <body>
 	<div>
 		<ul id="menubar" class="menubar ui-corner-all">
-			<li><a href="#About">About</a></li>
-			<li><a href="#File">File</a>
+			<li>
+				<a href="#File">Contacts</a>
 				<ul>
-					<li><a href="#Open...">Open...</a></li>
-					<li class="ui-state-disabled"><a href="#">Open recent...</a></li>
-					<li><a href="#Save">Save</a></li>
-					<li><a href="#Save%20as...">Save as...</a></li>
-					<li><a href="#Close">Close</a></li>
-					<li><a href="#Quit">Quit</a></li>
-				</ul></li>
-			<li><a href="#Edit">Edit</a>
+					<li><a href="#Open...">Manage...</a></li>
+					<li class="ui-state-disabled"><a href="#">Report...</a></li>
+					<li><a href="#Save">Export...</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#Edit">Users</a>
 				<ul>
-					<li><a href="#Copy">Copy</a></li>
-					<li><a href="#Cut">Cut</a></li>
-					<li class="ui-state-disabled"><a href="#">Paste</a></li>
-				</ul></li>
-			<li><a href="#View">View</a>
-				<ul>
-					<li><a href="#Fullscreen">Fullscreen</a></li>
-					<li><a href="#Fit%20into%20view">Fit into view</a></li>
-					<li><a href="#Encoding">Encoding</a>
-						<ul>
-							<li><a href="#Auto-detect">Auto-detect</a></li>
-							<li><a href="#UTF-8">UTF-8</a></li>
-							<li><a href="#UTF-16">UTF-16</a>
-								<ul>
-									<li><a href="#Option%201">Option 1</a></li>
-									<li><a href="#Option%202">Option 2</a></li>
-									<li><a href="#Option%203">Option 3</a></li>
-									<li><a href="#Option%204">Option 4</a></li>
-								</ul></li>
-						</ul></li>
-					<li><a href="#Customize...">Customize...</a></li>
-				</ul></li>
+					<li><a href="#Copy">Manage...</a></li>
+					<li class="ui-state-disabled"><a href="#">Report</a></li>
+				</ul>
+			</li>
 		</ul>
 
 	</div>
