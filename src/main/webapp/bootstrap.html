@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Menubar with Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <script src="lib/jquery/jquery-1.8.2.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+	
+			$("#btnLogin").click(
+				function() {
+						// Test our form for a valid login.  
+						// Our form only works with:
+						//     username: admin
+						//     password: admin
+						if ($("#username").val() != "admin"
+								&& $("#password").val() != "admin") {
+							$('#notification')
+								.removeClass()
+								.addClass("alert alert-error")
+								.html('<button type="button" class="close" data-dismiss="alert">×</button><strong>Error</strong> Wrong credentials.');
+						} else {
+							$('#notification')
+								.removeClass()
+								.addClass("alert alert-success")
+								.html('<button type="button" class="close" data-dismiss="alert">×</button><strong>Success</strong> Login executed.');
+						}
+	
+						// return false to cancel normal form submit event methods.
+						return false;
+					});
+		});
+	</script>
+    
+  </head>
+
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Address book</a>
+          <div class="nav-collapse collapse">
+			<ul class="nav">
+			  <li class="dropdown">
+			    <a href="#"
+			      class="dropdown-toggle"
+			      data-toggle="dropdown">
+			      Contacts
+			      <b class="caret"></b>
+			    </a>
+			    <ul class="dropdown-menu">
+			      <li><a href="#ContactsManage">Manage...</a></li>
+			      <li class="disabled"><a href="#ContactsReport">Report...</a></li>
+			      <li><a href="#ContactsExport">Export...</a></li>
+			    </ul>
+			  </li>
+			</ul>
+			<ul class="nav">
+			  <li class="dropdown">
+			    <a href="#"
+			      class="dropdown-toggle"
+			      data-toggle="dropdown">
+			      Users
+			      <b class="caret"></b>
+			    </a>
+			    <ul class="dropdown-menu">
+			      <li><a href="#">Manage...</a></li>
+			      <li><a href="#">Report...</a></li>
+			    </ul>
+			  </li>
+			</ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+		<form class="well form-horizontal offset2 span8">
+			<legend>Login form</legend>
+			<div id="notification"></div>
+			<div class="control-group">
+				<label class="control-label" for="username">Username: </label>
+				<div class="controls">
+					<input id="username" type="text" placeholder="Type your username"/>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="password">Password: </label>
+				<div class="controls">
+					<input id="password" type="password" placeholder="Enter your password"/>
+				</div>
+			</div>
+			<div class="form-actions">
+  				<button id="btnLogin" type="button" class="btn btn-primary">Login</button>
+  				<button id="btnCancel" type="button" class="btn">Cancel</button>
+			</div>
+		</form>
+		
+
+    </div>
+
+  </body>
+</html>
