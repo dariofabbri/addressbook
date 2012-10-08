@@ -44,10 +44,17 @@
 		</div>
 	</div>
 	<div class="form-actions">
-				<button id="btnLogin" type="button" class="btn btn-primary">Login</button>
-				<button id="btnCancel" type="button" class="btn">Cancel</button>
+		<button id="btnLogin" type="button" class="btn btn-primary">Login</button>
+		<button id="btnCancel" type="button" class="btn">Cancel</button>
 	</div>
 </form>
+		</script>
+		
+		<script type="text/template" id="alertTemplate">
+			<div id="notification" class="alert <%=alertClass%> fade in out">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				<strong><%=title%></strong> <%=message%>
+			</div>
 		</script>
 				
 		<!-- Application scripts -->
