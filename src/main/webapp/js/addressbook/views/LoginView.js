@@ -1,28 +1,28 @@
-var LoginView = Backbone.View.extend({
+LoginView = Backbone.View.extend({
+	
+	el: "#container",
 	
 	template: $("#loginViewTemplate").html(),
 
 	events: {
-		"click #btnLogin" : "executeLogin",
-		"click #btnCancel" : "cancelForm",
+		"click #btnLogin": "executeLogin",
+		"click #btnCancel": "cancelForm"
 	},
 
 	initialize: function() {
 	
-		this.el = $("#container");
+		this.render();
 	},
 	
 	render: function() {
 
-		$(this.el).html(_.template(this.template));
-		//$("#container").html(_.template(this.template));
+		this.$el.html(_.template(this.template));
 		return this;
 	},
 	
 	cancelForm: function(e) {
 		
 		e.preventDefault();
-		
 		alert("Not allowed!");
 	},
 	
@@ -50,9 +50,5 @@ var LoginView = Backbone.View.extend({
 							title: "Success", 
 							message: "Login executed."}));
 		}
-
-		// Return false to cancel normal form submit event methods.
-		//
-		return false;
 	}
 });

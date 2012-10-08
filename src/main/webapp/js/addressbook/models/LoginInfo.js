@@ -1,4 +1,4 @@
-var LoginInfo = Backbone.Model.extend({
+LoginInfo = Backbone.Model.extend({
 
 	defaults: {
 		loggedOn: false,

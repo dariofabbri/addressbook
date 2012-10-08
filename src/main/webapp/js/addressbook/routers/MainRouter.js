@@ -1,4 +1,4 @@
-var MainRouter = Backbone.Router.extend({
+MainRouter = Backbone.Router.extend({
 	
 	routes: {
 		"login": "login"
@@ -6,7 +6,6 @@ var MainRouter = Backbone.Router.extend({
 	
 	login: function() {
 		var view = new LoginView({model: Application.loginInfo});
-		view.render();
 	}
 	
 });
