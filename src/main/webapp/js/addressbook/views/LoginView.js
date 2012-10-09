@@ -1,54 +1,73 @@
-LoginView = Backbone.View.extend({
+define([
+	"underscore", 
+	"backbone",
+	"jquery",
+	"text!templates/loginViewTemplate.html",
+	"text!templates/alertTemplate.html",], 
+	function(_, Backbone, $, loginViewTemplate, alertTemplate) {
 	
-	el: "#container",
-	
-	template: $("#loginViewTemplate").html(),
-
-	events: {
-		"click #btnLogin": "executeLogin",
-		"click #btnCancel": "cancelForm"
-	},
-
-	initialize: function() {
-	
-		this.render();
-	},
-	
-	render: function() {
-
-		this.$el.html(_.template(this.template));
-		return this;
-	},
-	
-	cancelForm: function(e) {
+	var LoginView = Backbone.View.extend({
 		
-		e.preventDefault();
-		alert("Not allowed!");
-	},
+		el: "#container",
 	
-	executeLogin: function(e) {
+		events: {
+			"click #btnLogin": "processSubmit",
+			"click #btnCancel": "cancelForm",
+			"keypress": "manageEnter"
+		},
+	
+		initialize: function() {
 		
-		e.preventDefault();
+			this.render();
+		},
 		
-		var template = $("#alertTemplate").html();
-
-		if ($("#username").val() != "admin" ||
-				$("#password").val() != "admin") {
-			$("#notification").remove();
-		    $("form>legend").after(
-		   		_.template(template,
-					{
-						alertClass: "alert-error", 
-						title: "Error", 
-						message: "Wrong credentials."}));
-		} else {
-			$("#notification").remove();
-		    $("form>legend").after(
-			   		_.template(template,
+		render: function() {
+	
+			this.$el.html(_.template(loginViewTemplate));
+			return this;
+		},
+		
+		manageEnter: function(e) {
+			if (e.keyCode == 13) {
+				e.preventDefault();
+				this.executeLogin();
+			}
+		},
+		
+		cancelForm: function(e) {
+			
+			e.preventDefault();
+			alert(application.loginInfo.get("loggedOn"));
+		},
+		
+		processSubmit: function(e) {
+			
+			e.preventDefault();
+			this.executeLogin();
+		},
+		
+		executeLogin: function() {
+			
+			if ($("#username").val() != "admin" ||
+					$("#password").val() != "admin") {
+				$("#notification").remove();
+			    $("form>legend").after(
+			   		_.template(alertTemplate,
 						{
-							alertClass: "alert-success", 
-							title: "Success", 
-							message: "Login executed."}));
+							alertClass: "alert-error", 
+							title: "Error", 
+							message: "Wrong credentials."}));
+			} else {
+				$("#notification").remove();
+			    $("form>legend").after(
+				   		_.template(alertTemplate,
+							{
+								alertClass: "alert-success", 
+								title: "Success", 
+								message: "Login executed."}));
+			}
 		}
-	}
+	});
+	
+	return LoginView;
 });

@@ -1,15 +1,19 @@
-LoginInfo = Backbone.Model.extend({
-
-	defaults: {
-		loggedOn: false,
-		username: null,
-		name: null,
-		surname: null,
-		logonTs: null,
-		securityToken: null
-	},
+define([
+	"underscore", 
+	"backbone"], 
+	function(_, Backbone) {
 	
-	initialize: function(args) {
-		
-	}
+	var LoginInfo = Backbone.Model.extend({
+	
+		defaults: {
+			loggedOn: false,
+			username: null,
+			name: null,
+			surname: null,
+			logonTs: null,
+			securityToken: null
+		},
+	});
+	
+	return LoginInfo;
 });

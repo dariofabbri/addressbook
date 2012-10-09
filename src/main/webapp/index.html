@@ -20,49 +20,8 @@
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		
-		<!-- JS libraries -->
-		<script src="js/jquery/jquery-1.8.2.js"></script>
-		<script src="js/underscore/underscore.js"></script>
-		<script src="js/backbone/backbone.js"></script>
-		<script src="js/bootstrap/bootstrap.js"></script>
 
-		<!-- HTML templates -->
-		<script type="text/template" id="loginViewTemplate">
-<form class="well form-horizontal offset2 span6">
-	<legend>Login form</legend>
-	<div class="control-group">
-		<label class="control-label" for="username">Username: </label>
-		<div class="controls">
-			<input id="username" type="text" placeholder="Type your username"/>
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label" for="password">Password: </label>
-		<div class="controls">
-			<input id="password" type="password" placeholder="Enter your password"/>
-		</div>
-	</div>
-	<div class="form-actions">
-		<button id="btnLogin" type="button" class="btn btn-primary">Login</button>
-		<button id="btnCancel" type="button" class="btn">Cancel</button>
-	</div>
-</form>
-		</script>
-		
-		<script type="text/template" id="alertTemplate">
-			<div id="notification" class="alert <%=alertClass%> fade in out">
-				<button type="button" class="close" data-dismiss="alert">×</button>
-				<strong><%=title%></strong> <%=message%>
-			</div>
-		</script>
-				
-		<!-- Application scripts -->
-		<script src="js/addressbook/routers/MainRouter.js"></script>
-		<script src="js/addressbook/models/LoginInfo.js"></script>
-		<script src="js/addressbook/views/LoginView.js"></script>
-		<script src="js/addressbook/Application.js"></script>
-		
+		<script data-main="js/addressbook/Application.js" src="js/require/require.js"></script>		
 	</head>
 	
 	<body>
