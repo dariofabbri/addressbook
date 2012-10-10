@@ -29,12 +29,12 @@ var application = {
 
 require([
 	"jquery", 
-	"addressbook/routers/MainRouter",
-	"addressbook/models/LoginInfo",
+	"addressbook/routers/main",
+	"addressbook/models/logininfo",
 	"bootstrap"], function($, MainRouter, LoginInfo) {
 	$(function() {
 	
-		var router = new MainRouter();
+		new MainRouter();
 		application.loginInfo = new LoginInfo();
 		
 		Backbone.history.start({root: "/addressbook"});

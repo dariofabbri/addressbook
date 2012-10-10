@@ -3,7 +3,7 @@ define([
 	"backbone"], 
 	function(_, Backbone) {
 	
-	var LoginInfo = Backbone.Model.extend({
+	var loginInfo = Backbone.Model.extend({
 	
 		defaults: {
 			loggedOn: false,
@@ -15,5 +15,5 @@ define([
 		},
 	});
 	
-	return LoginInfo;
+	return loginInfo;
 });

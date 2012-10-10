@@ -2,11 +2,11 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"text!templates/loginViewTemplate.html",
-	"text!templates/alertTemplate.html",], 
-	function(_, Backbone, $, loginViewTemplate, alertTemplate) {
+	"text!templates/loginPanel.html",
+	"text!templates/alert.html"], 
+	function(_, Backbone, $, loginPanelTemplate, alertTemplate) {
 	
-	var LoginView = Backbone.View.extend({
+	var loginView = Backbone.View.extend({
 		
 		el: "#container",
 	
@@ -23,7 +23,7 @@ define([
 		
 		render: function() {
 	
-			this.$el.html(_.template(loginViewTemplate));
+			this.$el.html(_.template(loginPanelTemplate));
 			return this;
 		},
 		
@@ -52,22 +52,25 @@ define([
 					$("#password").val() != "admin") {
 				$("#notification").remove();
 			    $("form>legend").after(
-			   		_.template(alertTemplate,
-						{
+			   		_.template(alertTemplate, {
 							alertClass: "alert-error", 
 							title: "Error", 
 							message: "Wrong credentials."}));
 			} else {
+				application.loginInfo.set({
+					loggedOn: true
+				});
 				$("#notification").remove();
 			    $("form>legend").after(
-				   		_.template(alertTemplate,
-							{
+				   		_.template(alertTemplate, {
 								alertClass: "alert-success", 
 								title: "Success", 
 								message: "Login executed."}));
+			    
+			    Backbone.history.navigate("#home", true);	
 			}
 		}
 	});
 	
-	return LoginView;
+	return loginView;
 });
