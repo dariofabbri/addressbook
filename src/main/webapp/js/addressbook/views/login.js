@@ -15,14 +15,9 @@ define([
 			"click #btnCancel": "cancelForm",
 			"keypress": "manageEnter"
 		},
-	
-		initialize: function() {
-		
-			this.render();
-		},
 		
 		render: function() {
-	
+			
 			this.$el.html(_.template(loginPanelTemplate));
 			return this;
 		},

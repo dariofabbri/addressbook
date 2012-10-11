@@ -11,14 +11,9 @@ define([
 	
 		events: {
 		},
-	
-		initialize: function() {
-		
-			this.render();
-		},
 		
 		render: function() {
-	
+
 			this.$el.html(_.template(navbarTemplate));
 			return this;
 		},

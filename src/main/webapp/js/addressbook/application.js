@@ -28,12 +28,28 @@ var application = {
 };
 
 require([
-	"jquery", 
+	"jquery",
+	"underscore",
+	"backbone",
 	"addressbook/routers/main",
 	"addressbook/models/logininfo",
-	"bootstrap"], function($, MainRouter, LoginInfo) {
+	"bootstrap"], 
+	function($, _, Backbone, MainRouter, LoginInfo) {
 	$(function() {
 	
+		Backbone.View.prototype.close = function() {
+			this.$el.fadeOut();
+			this.$el.empty();
+			//this.remove();
+			this.unbind();
+		};
+		
+		Backbone.View.prototype.show = function() {
+			this.$el.hide();
+			this.render();
+			this.$el.fadeIn();
+		};
+		
 		new MainRouter();
 		application.loginInfo = new LoginInfo();
 		
