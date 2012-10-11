@@ -16,7 +16,7 @@ define([
 
 			this.$el.html(_.template(navbarTemplate));
 			return this;
-		},
+		}
 	});
 	
 	return navbarView;

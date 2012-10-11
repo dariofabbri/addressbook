@@ -53,7 +53,8 @@ define([
 							message: "Wrong credentials."}));
 			} else {
 				application.loginInfo.set({
-					loggedOn: true
+					loggedOn: true,
+					permissions: ["Contacts", "Users"]
 				});
 				$("#notification").remove();
 			    $("form>legend").after(

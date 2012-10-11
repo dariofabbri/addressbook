@@ -11,7 +11,8 @@ define([
 			name: null,
 			surname: null,
 			logonTs: null,
-			securityToken: null
+			securityToken: null,
+			permissions: []
 		},
 	});
 	
