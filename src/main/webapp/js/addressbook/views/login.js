@@ -43,8 +43,9 @@ define([
 		
 		executeLogin: function() {
 			
-			if ($("#username").val() != "admin" ||
-					$("#password").val() != "admin") {
+			var username = $("#username").val();
+			var password = $("#password").val();
+			if(!application.loginInfo.doLogin(username, password)) {
 				$("#notification").remove();
 			    $("form>legend").after(
 			   		_.template(alertTemplate, {
@@ -52,17 +53,6 @@ define([
 							title: "Error", 
 							message: "Wrong credentials."}));
 			} else {
-				application.loginInfo.set({
-					loggedOn: true,
-					permissions: ["Contacts", "Users"]
-				});
-				$("#notification").remove();
-			    $("form>legend").after(
-				   		_.template(alertTemplate, {
-								alertClass: "alert-success", 
-								title: "Success", 
-								message: "Login executed."}));
-			    
 			    Backbone.history.navigate("#home", true);	
 			}
 		}
