@@ -2,13 +2,11 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"text!templates/loginPanel.html",
+	"text!templates/loginpanel.html",
 	"text!templates/alert.html"], 
 	function(_, Backbone, $, loginPanelTemplate, alertTemplate) {
 	
 	var loginView = Backbone.View.extend({
-		
-		el: "#container",
 	
 		events: {
 			"click #btnLogin": "processSubmit",

@@ -6,9 +6,7 @@ define([
 	function(_, Backbone, $, navbarTemplate) {
 	
 	var navbarView = Backbone.View.extend({
-		
-		el: "#navbar",
-	
+
 		events: {
 		},
 		

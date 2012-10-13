@@ -31,26 +31,52 @@ require([
 	"jquery",
 	"underscore",
 	"backbone",
+	"addressbook/viewmanager",
 	"addressbook/routers/main",
+	"addressbook/routers/contacts",
 	"addressbook/models/logininfo",
 	"bootstrap"], 
-	function($, _, Backbone, MainRouter, LoginInfo) {
+	function($, _, Backbone, viewManager, MainRouter, ContactsRouter, LoginInfo) {
+	
 	$(function() {
 	
-		Backbone.View.prototype.close = function() {
-			this.$el.fadeOut();
-			this.$el.empty();
-			//this.remove();
-			this.unbind();
+		Backbone.Router.prototype.show = function(view, selector) {
+
+			// Clean from selector, just in case.
+			//
+			this.close(selector);
+			
+			// Store new view in view manager.
+			//
+			viewManager[selector] = view;
+			
+			// Show the new view, with style.
+			//
+			$(selector).hide();
+			$(selector).html(view.render().el);
+			$(selector).fadeIn();
 		};
 		
-		Backbone.View.prototype.show = function() {
-			this.$el.hide();
-			this.render();
-			this.$el.fadeIn();
+		Backbone.Router.prototype.close = function(selector) {
+			
+			// Get existing view from view manager.
+			// If found, remove it.
+			//
+			var oldView = viewManager[selector];
+			if(oldView) {
+				delete viewManager[selector];
+			}
+			
+			$(selector).fadeOut();
+			if(oldView) {
+				oldView.remove();
+				oldView.unbind();
+			}
 		};
 		
 		new MainRouter();
+		new ContactsRouter();
+		
 		application.loginInfo = new LoginInfo();
 		
 		Backbone.history.start({root: "/addressbook"});

@@ -7,26 +7,24 @@ define([
 
 	var main = Backbone.Router.extend({
 		
-		views: {
-			loginView: new LoginView(),
-			navbarView: new NavbarView()
-		},
-		
 		routes: {
 			"login": "login",
-			"home": "home"				
+			"home": "home"
 		},
 		
 		login: function() {
-			this.views.navbarView.close();
-			this.views.loginView.show();
+			this.close("#navbar");
+
+			var newView = new LoginView();
+			this.show(newView, "#container");
 		},
 		
 		home: function() {
-			this.views.loginView.close();
-			this.views.navbarView.show();
-		}
+			this.close("#container");
 
+			var newView = new NavbarView();
+			this.show(newView, "#navbar");
+		},
 	});
 
 	return main;
