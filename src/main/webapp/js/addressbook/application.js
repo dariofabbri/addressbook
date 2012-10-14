@@ -36,7 +36,14 @@ require([
 	"addressbook/routers/contacts",
 	"addressbook/models/logininfo",
 	"bootstrap"], 
-	function($, _, Backbone, viewManager, MainRouter, ContactsRouter, LoginInfo) {
+	function(
+			$, 
+			_, 
+			Backbone, 
+			viewManager, 
+			MainRouter, 
+			ContactsRouter, 
+			LoginInfo) {
 	
 	$(function() {
 	
