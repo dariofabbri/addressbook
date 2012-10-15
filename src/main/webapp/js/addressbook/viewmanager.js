@@ -20,7 +20,7 @@ define(function() {
 		
 		alive: function() {
 			
-			alert("I am alive!");
+			console.log("I am alive!");
 		}
 	};
 	

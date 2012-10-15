@@ -10,8 +10,8 @@ define([
 		tagName: "tr",
 		
 		events: {
-			"click a#remove": "remove",
-			"click a#edit": "edit"
+			"click a#remove": "removeItem",
+			"click a#edit": "editItem"
 		},
 		
 		render: function() {
@@ -20,12 +20,14 @@ define([
 			return this;
 		},
 		
-		remove: function() {
-			alert("Remove! " + this.model.get("id"));
+		removeItem: function() {
+			console.log("Remove! " + this.model.get("id"));
+			this.model.destroy();
+			this.remove();
 		},
 		
-		edit: function() {
-			alert("Edit! " + this.model.get("id"));
+		editItem: function() {
+			console.log("Edit! " + this.model.get("id"));
 		}
 	});
 	

@@ -26,6 +26,18 @@ define([
                 	lastName: "Ruggieri",
                 	phoneNumber: "328.0814868"
                 },
+                {
+                	id: 3,
+                	firstName: "Dario",
+                	lastName: "Fabbri",
+                	phoneNumber: "328.4414000"
+                },
+                {
+                	id: 4,
+                	firstName: "Selvana",
+                	lastName: "Ruggieri",
+                	phoneNumber: "328.0814868"
+                }
 			]);
 			
 			var newView = new ContactsListView();

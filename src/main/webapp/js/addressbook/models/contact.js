@@ -10,6 +10,12 @@ define([
 			firstName: "",
 			lastName: "",
 			phoneNumber: ""
+		},
+	
+		sync: function(method, model, options) {
+			console.log("Method: " + method);
+			console.log("Model: " + model);
+			console.log("Options: " + options);
 		}
 	});
 	
