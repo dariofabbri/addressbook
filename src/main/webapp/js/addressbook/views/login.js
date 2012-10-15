@@ -20,6 +20,8 @@ define([
 			return this;
 		},
 		
+		autofocus: "#username",
+		
 		manageEnter: function(e) {
 			if (e.keyCode == 13) {
 				e.preventDefault();

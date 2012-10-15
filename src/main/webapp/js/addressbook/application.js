@@ -61,7 +61,11 @@ require([
 			//
 			$(selector).hide();
 			$(selector).html(view.render().el);
-			$(selector).fadeIn();
+			$(selector).fadeIn(function() {
+				if(view.autofocus) {
+					$(view.autofocus, $(selector)).focus();
+				}
+			});
 		};
 		
 		Backbone.Router.prototype.close = function(selector) {
