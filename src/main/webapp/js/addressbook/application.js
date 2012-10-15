@@ -7,7 +7,7 @@ require.config({
 		"underscore": "underscore/underscore",
 		"backbone": "backbone/backbone",
 		"text": "require/text",
-		"bootstrap": "bootstrap/bootstrap",
+		"bootstrap": "bootstrap/bootstrap"
 	},
 	
 	shim: {
