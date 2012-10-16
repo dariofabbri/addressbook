@@ -2,8 +2,9 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"text!templates/contactslistitem.html"], 
-	function(_, Backbone, $, itemTemplate) {
+	"text!templates/contactslistitem.html",
+	"text!templates/contactconfirmdelete.html",], 
+	function(_, Backbone, $, itemTemplate, confirmTemplate) {
 	
 	var view = Backbone.View.extend({
 		
@@ -11,7 +12,9 @@ define([
 		
 		events: {
 			"click a#remove": "removeItem",
-			"click a#edit": "editItem"
+			"click a#confirmRemove": "confirmRemoveItem",
+			"click a#edit": "editItem",
+			"click a#cancelRemove": "cancelRemove"
 		},
 		
 		render: function() {
@@ -21,8 +24,21 @@ define([
 		},
 		
 		removeItem: function() {
+			
+			this.$el.append(_.template(confirmTemplate));
+			$("#confirm").modal("show");
+		},
+		
+		confirmRemoveItem: function() {
+			
+			$("#confirm").modal("hide");
 			this.model.destroy();
 			this.remove();
+		},
+		
+		cancelRemove: function() {
+			
+			$("#confirm").modal("hide");
 		},
 		
 		editItem: function() {

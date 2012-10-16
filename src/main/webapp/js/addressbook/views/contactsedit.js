@@ -36,8 +36,14 @@ define([
 				var max = _.max(application.contacts.toJSON(), function(contact) {
 					return contact.id;
 				});
+
+				if(max) {
+					this.model.id = max.id + 1;
+				}
+				else {
+					this.model.id = 1;
+				}
 				
-				this.model.id = max.id + 1;
 				application.contacts.add(this.model);
 			}
 			
