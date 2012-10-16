@@ -21,13 +21,12 @@ define([
 		},
 		
 		removeItem: function() {
-			console.log("Remove! " + this.model.get("id"));
 			this.model.destroy();
 			this.remove();
 		},
 		
 		editItem: function() {
-			console.log("Edit! " + this.model.get("id"));
+			Backbone.history.navigate("#ContactsEdit/" + this.model.id, true);
 		}
 	});
 	

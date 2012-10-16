@@ -9,8 +9,8 @@ define([
 	var loginView = Backbone.View.extend({
 	
 		events: {
-			"click #btnLogin": "processSubmit",
-			"click #btnCancel": "cancelForm",
+			"click #login": "processSubmit",
+			"click #cancel": "cancelForm",
 			"keypress": "manageEnter"
 		},
 		

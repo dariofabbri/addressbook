@@ -11,6 +11,7 @@ define([
 		tagName: "div",
 		
 		events: {
+			"click a#add": "addItem"
 		},
 		
 		render: function() {
@@ -31,6 +32,10 @@ define([
 				model : item
 			});
 			$("tbody", this.el).append(itemView.render().el);
+		},
+		
+		addItem: function() {
+			Backbone.history.navigate("#ContactsNew", true);
 		}
 	});
 	
