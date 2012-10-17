@@ -36,6 +36,7 @@ require([
 	"addressbook/routers/contacts",
 	"addressbook/models/logininfo",
 	"addressbook/collections/contacts",
+	"addressbook/views/modaldialog",
 	"bootstrap"], 
 	function(
 			$, 
@@ -45,7 +46,8 @@ require([
 			MainRouter, 
 			ContactsRouter, 
 			LoginInfo,
-			Contacts) {
+			Contacts,
+			ModalDialogView) {
 	
 	$(function() {
 	
@@ -91,6 +93,9 @@ require([
 		new ContactsRouter();
 		
 		application.loginInfo = new LoginInfo();
+		
+		application.modalDialog = new ModalDialogView();
+		$("#modaldialog").html(application.modalDialog.render().el);
 		
 		application.contacts = new Contacts();
 		application.contacts.add([

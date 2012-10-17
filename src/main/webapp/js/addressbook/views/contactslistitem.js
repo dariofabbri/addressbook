@@ -2,9 +2,8 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"text!templates/contactslistitem.html",
-	"text!templates/contactsconfirmremove.html"], 
-	function(_, Backbone, $, itemTemplate, confirmTemplate) {
+	"text!templates/contactslistitem.html"], 
+	function(_, Backbone, $, itemTemplate) {
 	
 	var view = Backbone.View.extend({
 		
@@ -22,13 +21,26 @@ define([
 		},
 		
 		removeItem: function() {
-			
-			this.$el.append(_.template(confirmTemplate));
-			$("#confirmRemoveDialog", this.$el).modal({show: true, backdrop: "static"});
+
+			application.modalDialog.show({
+				okCallback: this.doRemoveItem,
+				cancelCallback: this.cancelRemoveItem,
+				context: this
+			});
 		},
 		
 		editItem: function() {
 			Backbone.history.navigate("#ContactsEdit/" + this.model.id, true);
+		},
+		
+		cancelRemoveItem: function() {
+			
+		},
+		
+		doRemoveItem: function() {
+			
+			this.model.destroy();
+			this.remove();
 		}
 	});
 	
