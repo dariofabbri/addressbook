@@ -20,6 +20,11 @@ define([
 			return this;
 		},
 		
+		initialize: function() {
+			
+			this.model.on("error", this.showErrors, this);
+		},
+		
 		autofocus: "#firstname",
 
 		save: function() {
@@ -28,12 +33,17 @@ define([
 			var lastName = $("#lastname").val();
 			var phoneNumber = $("#phonenumber").val();
 
-			this.model.set("firstName", firstName);
-			this.model.set("lastName", lastName);
-			this.model.set("phoneNumber", phoneNumber);
+			var result = this.model.set({
+				firstName: firstName,
+				lastName: lastName,
+				phoneNumber: phoneNumber
+			});
+			if(!result) {
+				return;
+			}
 			
 			if(!this.model.id) {
-				var max = _.max(application.contacts.toJSON(), function(contact) {
+				var max = _.max(application.contacts.models, function(contact) {
 					return contact.id;
 				});
 
@@ -53,6 +63,72 @@ define([
 		cancel: function() {
 			
 			Backbone.history.navigate("ContactsList", true);
+		},
+		
+		showErrors: function(model, errors) {
+			
+			if(errors.firstName) {
+				$("#firstname", this.el)
+					.closest(".control-group")
+					.removeClass()
+					.addClass("control-group")
+					.addClass("error");
+				$("#firstname", this.el)
+					.next("span")
+					.text(errors.firstName);
+			}
+			else {
+				$("#firstname", this.el)
+					.closest(".control-group")
+					.removeClass()
+					.addClass("control-group")
+					.addClass("success");
+				$("#firstname", this.el)
+					.next("span")
+					.text("");				
+			}
+			
+			if(errors.lastName) {
+				$("#lastname", this.el)
+					.closest(".control-group")
+					.removeClass()
+					.addClass("control-group")
+					.addClass("error");
+				$("#lastname", this.el)
+					.next("span")
+					.text(errors.lastName);
+			}
+			else {
+				$("#lastname", this.el)
+					.closest(".control-group")
+					.removeClass()
+					.addClass("control-group")
+					.addClass("success");
+				$("#lastname", this.el)
+					.next("span")
+					.text("");
+			}
+			
+			if(errors.phoneNumber) {
+				$("#phonenumber", this.el)
+					.closest(".control-group")
+					.removeClass()
+					.addClass("control-group")
+					.addClass("error");
+				$("#phonenumber", this.el)
+					.next("span")
+					.text(errors.phoneNumber);
+			}
+			else {
+				$("#phonenumber", this.el)
+					.closest(".control-group")
+					.removeClass()
+					.addClass("control-group")
+					.addClass("success");
+				$("#phonenumber", this.el)
+					.next("span")
+					.text("");
+			}
 		}
 	});
 	

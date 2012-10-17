@@ -29,16 +29,18 @@ define([
 		},
 		
 		create: function() {
-			
-			var newView = new ContactsEditView();
-			newView.model = new Contact();
+
+			var newView = new ContactsEditView({
+				model: new Contact()
+			});
 			this.show(newView, "#container");
 		},
 		
 		edit: function(id) {
 			
-			var newView = new ContactsEditView();
-			newView.model = application.contacts.get(id);
+			var newView = new ContactsEditView({
+				model: application.contacts.get(id)
+			});
 			this.show(newView, "#container");
 		}
 	});
