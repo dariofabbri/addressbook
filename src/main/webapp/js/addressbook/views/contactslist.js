@@ -35,6 +35,7 @@ define([
 		},
 		
 		addItem: function() {
+			
 			Backbone.history.navigate("#ContactsNew", true);
 		}
 	});

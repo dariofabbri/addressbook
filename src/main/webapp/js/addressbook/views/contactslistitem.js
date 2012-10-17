@@ -3,7 +3,7 @@ define([
 	"backbone",
 	"jquery",
 	"text!templates/contactslistitem.html",
-	"text!templates/contactconfirmdelete.html",], 
+	"text!templates/contactsconfirmremove.html"], 
 	function(_, Backbone, $, itemTemplate, confirmTemplate) {
 	
 	var view = Backbone.View.extend({
@@ -12,9 +12,7 @@ define([
 		
 		events: {
 			"click a#remove": "removeItem",
-			"click a#confirmRemove": "confirmRemoveItem",
-			"click a#edit": "editItem",
-			"click a#cancelRemove": "cancelRemove"
+			"click a#edit": "editItem"
 		},
 		
 		render: function() {
@@ -26,19 +24,7 @@ define([
 		removeItem: function() {
 			
 			this.$el.append(_.template(confirmTemplate));
-			$("#confirm").modal("show");
-		},
-		
-		confirmRemoveItem: function() {
-			
-			$("#confirm").modal("hide");
-			this.model.destroy();
-			this.remove();
-		},
-		
-		cancelRemove: function() {
-			
-			$("#confirm").modal("hide");
+			$("#confirmRemoveDialog", this.$el).modal({show: true, backdrop: "static"});
 		},
 		
 		editItem: function() {
