@@ -23,8 +23,14 @@ define([
 		
 		list: function() {
 			
-			var newView = new ContactsListView();
-			newView.collection = application.contacts;
+			var headers = {
+				"X-Security-Token": application.loginInfo.get("securityToken")
+			};
+			
+			var collection = new Contacts();
+			collection.fetch({headers : headers});
+			var newView = new ContactsListView({collection: collection});
+			
 			this.show(newView, "#container");
 		},
 		
@@ -38,9 +44,14 @@ define([
 		
 		edit: function(id) {
 			
-			var newView = new ContactsEditView({
-				model: application.contacts.get(id)
-			});
+			var headers = {
+				"X-Security-Token": application.loginInfo.get("securityToken")
+			};
+
+			var model = new Contact({id: id});
+			model.fetch({headers: headers});
+			
+			var newView = new ContactsEditView({model: model});
 			this.show(newView, "#container");
 		}
 	});

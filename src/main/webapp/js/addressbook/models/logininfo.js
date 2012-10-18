@@ -14,24 +14,25 @@ define([
 			securityToken: null,
 			permissions: []
 		},
-		
+	
 		doLogin: function(username, password) {
-			
-			if(username != "admin" || password != "admin")
-				return false;
-			
-			this.set({
-				loggedOn: true,
-				username: "admin",
-				name: "System",
-				surname: "Administrator",
-				logonTs: new Date(),
-				securityToken: "b5f8b096-6cef-41e1-a864-b0ec8065259e",
-				permissions: [
-				              "Contacts",
-				              "Users"]				
+
+			var that = this;
+			$.ajax({
+				url: "/addressbook/api/security",
+				type: "POST",
+				dataType: "json",
+				data: JSON.stringify({username: username, password: password}),
+				contentType: "application/json",
+				async: false,
+				success: function(data, textStatus, jqXHR){
+					that.set("securityToken", data.token);
+					that.set("loggedOn", true);
+					that.set("username", username);
+				}
 			});
-			return true;
+			
+			return this.get("loggedOn");
 		}
 	});
 	

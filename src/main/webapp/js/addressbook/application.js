@@ -35,7 +35,6 @@ require([
 	"addressbook/routers/main",
 	"addressbook/routers/contacts",
 	"addressbook/models/logininfo",
-	"addressbook/collections/contacts",
 	"addressbook/views/modaldialog",
 	"bootstrap"], 
 	function(
@@ -46,7 +45,6 @@ require([
 			MainRouter, 
 			ContactsRouter, 
 			LoginInfo,
-			Contacts,
 			ModalDialogView) {
 	
 	$(function() {
@@ -128,34 +126,6 @@ require([
 		application.modalDialog = new ModalDialogView();
 		$("#modaldialog").html(application.modalDialog.render().el);
 		
-		application.contacts = new Contacts();
-		application.contacts.add([
-            {
-            	id: 1,
-            	firstName: "Dario",
-            	lastName: "Fabbri",
-            	phoneNumber: "328.4414000"
-            },
-            {
-            	id: 2,
-            	firstName: "Selvana",
-            	lastName: "Ruggieri",
-            	phoneNumber: "328.0814868"
-            },
-            {
-            	id: 3,
-            	firstName: "Dario",
-            	lastName: "Fabbri",
-            	phoneNumber: "328.4414000"
-            },
-            {
-            	id: 4,
-            	firstName: "Selvana",
-            	lastName: "Ruggieri",
-            	phoneNumber: "328.0814868"
-            }
-		]);
-
 		Backbone.history.start({root: "/addressbook"});
 		Backbone.history.navigate("#login", true);	
 	});

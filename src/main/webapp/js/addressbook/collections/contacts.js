@@ -6,8 +6,9 @@ define([
 	
 	var contacts = Backbone.Collection.extend({
 
-		model: Contact
-			
+		model: Contact,
+		
+		url: "/addressbook/api/contacts"			
 	});
 	
 	return contacts;

@@ -11,14 +11,8 @@ define([
 			lastName: "",
 			phoneNumber: ""
 		},
-	
-		sync: function(method, model, options) {
-			if(console) {
-				console.log("Method: " + method);
-				console.log("Model: " + model);
-				console.log("Options: " + options);
-			}
-		},
+		
+		url: "/addressbook/api/contacts",			
 		
 		validate: function(changed) {
 			

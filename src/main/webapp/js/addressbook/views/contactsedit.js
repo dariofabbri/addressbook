@@ -42,20 +42,11 @@ define([
 				return;
 			}
 			
-			if(!this.model.id) {
-				var max = _.max(application.contacts.models, function(contact) {
-					return contact.id;
-				});
-
-				if(max) {
-					this.model.id = max.id + 1;
-				}
-				else {
-					this.model.id = 1;
-				}
-				
-				application.contacts.add(this.model);
-			}
+			
+			var headers = {
+				"X-Security-Token": application.loginInfo.get("securityToken")
+			};
+			this.model.save({}, {headers : headers});
 			
 			Backbone.history.navigate("ContactsList", true);			
 		},

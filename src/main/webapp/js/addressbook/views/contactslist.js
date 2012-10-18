@@ -14,9 +14,13 @@ define([
 			"click a#add": "addItem"
 		},
 		
+		initialize: function() {
+			this.collection.on("all", this.render, this);
+		},
+		
 		render: function() {
 
-			this.$el.append(_.template(listTemplate));
+			this.$el.html(_.template(listTemplate));
 
 			var that = this;
 			_.each(this.collection.models, function(item) {
