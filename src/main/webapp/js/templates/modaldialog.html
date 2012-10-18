@@ -1,11 +1,11 @@
 <div class="modal-header">
 	<a id="cancel" class="close">&times;</a>
-	<h3>Delete contact</h3>
+	<h3><% if(obj.title) { print(title) } %></h3>
 </div>
 <div class="modal-body">
-	Do you confirm contact deletion?
+	<% if(obj.message) { print(message) } %>
 </div>
 <div class="modal-footer">
-	<a id="cancel" class="btn">Cancel</a>
-	<a id="ok" class="btn btn-primary">Yes</a>
+	<a id="cancel" class="btn"><% if(obj.cancelCaption) { print(cancelCaption) } %></a>
+	<a id="ok" class="btn btn-primary"><% if(obj.okCaption) { print(okCaption) } %></a>
 </div>

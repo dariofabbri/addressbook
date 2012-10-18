@@ -16,8 +16,6 @@ define([
 			"click a#ok": "doOk",
 		},
 		
-		eventBus: _.clone(Backbone.Events),
-		
 		render: function() {
 
 			this.$el.html(_.template(modalDialogTemplate));
@@ -26,11 +24,25 @@ define([
 		
 		show: function(options) {
 			
-			this.eventBus.off("modaldialog:cancel");
-			this.eventBus.off("modaldialog:ok");
-			this.eventBus.on("modaldialog:cancel", options.cancelCallback, options.context);
-			this.eventBus.on("modaldialog:ok", options.okCallback, options.context);
+			// Set up events binding.
+			///
+			this.off("modaldialog:cancel");
+			this.off("modaldialog:ok");
+			this.on("modaldialog:cancel", options.cancelCallback, options.context);
+			this.on("modaldialog:ok", options.okCallback, options.context);
 			
+			// Render the template passing the captions.
+			//
+			var captions = {
+				title: options.title || "Undefined title",
+				message: options.message || "Undefined message",
+				okCaption: options.okCaption || "OK",
+				cancelCaption: options.cancelCaption || "Cancel"
+			};
+			this.$el.html(_.template(modalDialogTemplate, captions));
+			
+			// Show the modal dialog.
+			//
 			this.$el.modal({
 				show: true, 
 				backdrop: "static"
@@ -40,12 +52,12 @@ define([
 		doCancel: function() {
 			
 			this.$el.modal("hide");
-			this.eventBus.trigger("modaldialog:cancel");
+			this.trigger("modaldialog:cancel");
 		},
 		
 		doOk: function() {
 			this.$el.modal("hide");
-			this.eventBus.trigger("modaldialog:ok");
+			this.trigger("modaldialog:ok");
 		}
 	});
 	

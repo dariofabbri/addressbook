@@ -68,66 +68,24 @@ define([
 		showErrors: function(model, errors) {
 			
 			if(errors.firstName) {
-				$("#firstname", this.el)
-					.closest(".control-group")
-					.removeClass()
-					.addClass("control-group")
-					.addClass("error");
-				$("#firstname", this.el)
-					.next("span")
-					.text(errors.firstName);
+				this.highlightField("#firstname", "error", errors.firstName);
 			}
 			else {
-				$("#firstname", this.el)
-					.closest(".control-group")
-					.removeClass()
-					.addClass("control-group")
-					.addClass("success");
-				$("#firstname", this.el)
-					.next("span")
-					.text("");				
+				this.highlightField("#firstname", "success");
 			}
 			
 			if(errors.lastName) {
-				$("#lastname", this.el)
-					.closest(".control-group")
-					.removeClass()
-					.addClass("control-group")
-					.addClass("error");
-				$("#lastname", this.el)
-					.next("span")
-					.text(errors.lastName);
+				this.highlightField("#lastname", "error", errors.lastName);
 			}
 			else {
-				$("#lastname", this.el)
-					.closest(".control-group")
-					.removeClass()
-					.addClass("control-group")
-					.addClass("success");
-				$("#lastname", this.el)
-					.next("span")
-					.text("");
+				this.highlightField("#lastname", "success");
 			}
 			
 			if(errors.phoneNumber) {
-				$("#phonenumber", this.el)
-					.closest(".control-group")
-					.removeClass()
-					.addClass("control-group")
-					.addClass("error");
-				$("#phonenumber", this.el)
-					.next("span")
-					.text(errors.phoneNumber);
+				this.highlightField("#phonenumber", "error", errors.phoneNumber);
 			}
 			else {
-				$("#phonenumber", this.el)
-					.closest(".control-group")
-					.removeClass()
-					.addClass("control-group")
-					.addClass("success");
-				$("#phonenumber", this.el)
-					.next("span")
-					.text("");
+				this.highlightField("#phonenumber", "success");
 			}
 		}
 	});

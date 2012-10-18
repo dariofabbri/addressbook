@@ -89,6 +89,37 @@ require([
 			}
 		};
 		
+		Backbone.View.prototype.highlightField = function(fieldSelector, cssClass, text) {
+			
+			// Reset highlight class in field control group.
+			//
+			$(fieldSelector, this.el)
+				.closest(".control-group")
+				.removeClass()
+				.addClass("control-group");
+			
+			// If specified, set highlight class.
+			//
+			if(cssClass) {
+				$(fieldSelector, this.el)
+					.closest(".control-group")
+					.addClass(cssClass);
+			}
+			
+			// If specified, set highlight text next to field.
+			//
+			if(text) {
+				$(fieldSelector, this.el)
+					.next("span")
+					.text(text);
+			}
+			else {
+				$(fieldSelector, this.el)
+				.next("span")
+				.text("");				
+			}
+		};
+		
 		new MainRouter();
 		new ContactsRouter();
 		

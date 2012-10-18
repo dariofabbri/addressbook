@@ -37,7 +37,10 @@ define([
 			}
 			
 			if(!_.isUndefined(changed.phoneNumber)) {
-				if(!/^[+0123456789\. ]+$/i.test(changed.phoneNumber)) {
+				if(_.isEmpty(changed.phoneNumber)) {
+					errors.phoneNumber = "The field is required.";
+				}
+				else if(!/^[+0123456789\. ]+$/i.test(changed.phoneNumber)) {
 					errors.phoneNumber = "Invalid phone number specified.";
 				}
 			}
