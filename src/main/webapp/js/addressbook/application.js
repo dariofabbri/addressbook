@@ -117,6 +117,34 @@ require([
 				.text("");				
 			}
 		};
+
+				
+		(function() {
+			var proxied = Backbone.sync;
+
+			Backbone.sync = function(method, model, options) {
+
+				// Get security token.
+				//
+				var token = application.loginInfo.get("securityToken");
+				
+				// TODO: check security token (presence, at least).
+				//
+				
+				// Extract passed headers.
+				//
+				var headers = options.headers || {};
+				headers["X-Security-Token"] = token;
+				
+				// Set back headers.
+				//
+				options.headers = headers;
+				
+				// Call proxied sync.
+				//
+				return proxied(method, model, options);
+			};
+		})();
 		
 		new MainRouter();
 		new ContactsRouter();

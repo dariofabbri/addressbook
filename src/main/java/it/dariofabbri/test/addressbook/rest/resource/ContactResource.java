@@ -10,6 +10,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -53,7 +54,7 @@ public class ContactResource {
 		contact.setPhoneNumber("338.345678");
 		contacts.add(contact);
 	}
-			
+	
 	@GET
 	public Response getContacts() {
 
@@ -67,6 +68,22 @@ public class ContactResource {
 		return Response.ok().entity(contacts).build();
 	}
 	
+	@GET
+	@Path("/{id}")
+	public Response getContact(@PathParam("id") Integer id) {
+
+		logger.debug("getContact called!");
+		
+		Subject currentUser = SecurityUtils.getSubject();
+		if(!currentUser.isPermitted("contacts:get")) {
+			return Response.status(Status.UNAUTHORIZED).entity("Operation not permitted.").build();
+		}
+		
+		ContactDTO contact = findById(id);
+		
+		return Response.ok().entity(contact).build();
+	}
+	
 	@DELETE
 	@Path("/{id}")
 	public Response deleteContact(@PathParam("id") Integer id) {
@@ -78,12 +95,7 @@ public class ContactResource {
 			return Response.status(Status.UNAUTHORIZED).entity("Operation not permitted.").build();
 		}
 		
-		ContactDTO contactToBeDeleted = null;
-		for(ContactDTO contact : contacts) {
-			if(contact.getId().equals(id)) {
-				contactToBeDeleted = contact;
-			}
-		}
+		ContactDTO contactToBeDeleted = findById(id);
 		
 		if(contactToBeDeleted != null) {
 			contacts.remove(contactToBeDeleted);
@@ -105,7 +117,61 @@ public class ContactResource {
 			return Response.status(Status.UNAUTHORIZED).entity("Operation not permitted.").build();
 		}
 
+		if(contact.getId() == null)
+			contact.setId(getNextId());
+		
 		contacts.add(contact);
 		return Response.ok().build();
+	}
+	
+	@PUT
+	@Consumes("application/json")
+	@Path("/{id}")
+	public Response updateContact(@PathParam("id") Integer id, ContactDTO contact) {
+		
+		logger.debug("updateContact called!");
+		
+		Subject currentUser = SecurityUtils.getSubject();
+		if(!currentUser.isPermitted("contacts:update")) {
+			return Response.status(Status.UNAUTHORIZED).entity("Operation not permitted.").build();
+		}
+		
+		ContactDTO contactToBeUpdated = findById(id);
+		
+		if(contactToBeUpdated != null) {
+			contactToBeUpdated.setFirstName(contact.getFirstName());
+			contactToBeUpdated.setLastName(contact.getLastName());
+			contactToBeUpdated.setPhoneNumber(contact.getPhoneNumber());
+			return Response.ok().build();
+		}
+		else {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
+	
+	private ContactDTO findById(Integer id) {
+		
+		ContactDTO foundContact = null;
+		for(ContactDTO contact : contacts) {
+			if(contact.getId().equals(id)) {
+				foundContact = contact;
+			}
+		}
+
+		return foundContact;
+	}
+	
+	private Integer getNextId() {
+		Integer max = null;
+		for(ContactDTO contact : contacts) {
+			if(max == null) {
+				max = contact.getId();
+			}
+			else if(max < contact.getId()) {
+				max = contact.getId();
+			}
+		}
+
+		return max == null ? 1 : max + 1;
 	}
 }

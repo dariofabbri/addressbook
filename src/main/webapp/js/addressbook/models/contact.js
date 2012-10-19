@@ -12,7 +12,7 @@ define([
 			phoneNumber: ""
 		},
 		
-		url: "/addressbook/api/contacts",			
+		urlRoot: "/addressbook/api/contacts",			
 		
 		validate: function(changed) {
 			

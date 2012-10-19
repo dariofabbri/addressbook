@@ -16,13 +16,14 @@ define([
 		
 		render: function() {
 
-			this.$el.append(_.template(editTemplate, this.model.toJSON()));
+			this.$el.html(_.template(editTemplate, this.model.toJSON()));
 			return this;
 		},
 		
 		initialize: function() {
 			
 			this.model.on("error", this.showErrors, this);
+			this.model.on("change", this.render, this);
 		},
 		
 		autofocus: "#firstname",
@@ -38,17 +39,14 @@ define([
 				lastName: lastName,
 				phoneNumber: phoneNumber
 			});
-			if(!result) {
-				return;
+			
+			if(result) {
+				this.model.save({}, {
+					success: function() {
+						Backbone.history.navigate("ContactsList", true);		
+					}
+				});
 			}
-			
-			
-			var headers = {
-				"X-Security-Token": application.loginInfo.get("securityToken")
-			};
-			this.model.save({}, {headers : headers});
-			
-			Backbone.history.navigate("ContactsList", true);			
 		},
 		
 		cancel: function() {
