@@ -34,6 +34,7 @@ require([
 	"addressbook/viewmanager",
 	"addressbook/routers/main",
 	"addressbook/routers/contacts",
+	"addressbook/routers/pagingcontacts",
 	"addressbook/models/logininfo",
 	"addressbook/views/modaldialog",
 	"bootstrap"], 
@@ -43,7 +44,8 @@ require([
 			Backbone, 
 			viewManager, 
 			MainRouter, 
-			ContactsRouter, 
+			ContactsRouter,
+			PagingContactsRouter,
 			LoginInfo,
 			ModalDialogView) {
 	
@@ -146,8 +148,10 @@ require([
 			};
 		})();
 		
-		new MainRouter();
-		new ContactsRouter();
+		application.routers = [];
+		application.routers.push(new MainRouter());
+		application.routers.push(new ContactsRouter());
+		application.routers.push(new PagingContactsRouter());
 		
 		application.loginInfo = new LoginInfo();
 		
@@ -155,6 +159,6 @@ require([
 		$("#modaldialog").html(application.modalDialog.render().el);
 		
 		Backbone.history.start({root: "/addressbook"});
-		Backbone.history.navigate("#login", true);	
+		Backbone.history.navigate("login", true);	
 	});
 });

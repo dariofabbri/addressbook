@@ -53,7 +53,7 @@ define([
 							title: "Error", 
 							message: "Wrong credentials."}));
 			} else {
-			    Backbone.history.navigate("#home", true);	
+			    Backbone.history.navigate("home", true);	
 			}
 		}
 	});

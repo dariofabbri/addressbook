@@ -2,8 +2,8 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"addressbook/views/contactslistitem",
-	"text!templates/contactslist.html"], 
+	"addressbook/views/pagingcontactslistitem",
+	"text!templates/pagingcontactslist.html"], 
 	function(_, Backbone, $, ItemView, listTemplate) {
 	
 	var view = Backbone.View.extend({
@@ -40,7 +40,7 @@ define([
 		
 		addItem: function() {
 			
-			Backbone.history.navigate("ContactsNew", true);
+			Backbone.history.navigate("PagingContactsNew", true);
 		}
 	});
 	

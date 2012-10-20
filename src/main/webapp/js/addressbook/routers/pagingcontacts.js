@@ -1,38 +1,38 @@
 define([
 	"underscore", 
 	"backbone",
-	"addressbook/views/contactslist",
-	"addressbook/views/contactsedit",
+	"addressbook/views/pagingcontactslist",
+	"addressbook/views/pagingcontactsedit",
 	"addressbook/models/contact",
 	"addressbook/collections/contacts"], 
 	function(
 			_, 
 			Backbone, 
-			ContactsListView, 
-			ContactsEditView,
+			PagingContactsListView, 
+			PagingContactsEditView,
 			Contact,
 			Contacts) {
 
-	var contacts = Backbone.Router.extend({
+	var pagingContacts = Backbone.Router.extend({
 		
 		routes: {
-			"ContactsList": "list",
-			"ContactsNew": "create",
-			"ContactsEdit/:id": "edit"
+			"PagingContactsList": "list",
+			"PagingContactsNew": "create",
+			"PagingContactsEdit/:id": "edit"
 		},
 		
 		list: function() {
 			
 			var collection = new Contacts();
 			collection.fetch();
-			var view = new ContactsListView({collection: collection});
+			var view = new PagingContactsListView({collection: collection});
 			
 			this.show(view, "#container");
 		},
 		
 		create: function() {
 
-			var view = new ContactsEditView({
+			var view = new PagingContactsEditView({
 				model: new Contact()
 			});
 			this.show(view, "#container");
@@ -42,11 +42,11 @@ define([
 			
 			var model = new Contact({id: id});
 			model.fetch();
-			var view = new ContactsEditView({model: model});
+			var view = new PagingContactsEditView({model: model});
 			
 			this.show(view, "#container");
 		}
 	});
 
-	return contacts;
+	return pagingContacts;
 });
