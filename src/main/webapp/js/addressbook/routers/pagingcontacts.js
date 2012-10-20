@@ -15,19 +15,32 @@ define([
 
 	var pagingContacts = Backbone.Router.extend({
 		
+		collection: new Contacts(),
+		
 		routes: {
 			"PagingContactsList": "list",
+			"PagingContactsList/page/:page": "page",
 			"PagingContactsNew": "create",
 			"PagingContactsEdit/:id": "edit"
 		},
 		
 		list: function() {
 			
-			var collection = new Contacts();
-			collection.fetch();
-			var view = new PagingContactsListView({collection: collection});
+			this.collection.fetch();
+			var view = new PagingContactsListView({collection: this.collection});
 			
 			this.show(view, "#container");
+		},
+		
+		page: function(page) {
+
+			var options = {
+				data: {
+					page: page || 1
+				}	
+			};
+			
+			this.collection.fetch(options);
 		},
 		
 		create: function() {

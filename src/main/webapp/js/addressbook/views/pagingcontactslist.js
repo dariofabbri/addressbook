@@ -2,9 +2,10 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
+	"addressbook/views/pager",
 	"addressbook/views/pagingcontactslistitem",
 	"text!templates/pagingcontactslist.html"], 
-	function(_, Backbone, $, ItemView, listTemplate) {
+	function(_, Backbone, $, Pager, ItemView, listTemplate) {
 	
 	var view = Backbone.View.extend({
 		
@@ -26,6 +27,12 @@ define([
 			_.each(this.collection.models, function(item) {
 				that.renderItem(item);
 			}, this);
+			
+			var pager = new Pager({
+				collection: this.collection,
+				baseUrl: "PagingContactsList/page/"
+			});
+			this.$el.append(pager.render().el);
 			
 			return this;
 		},
