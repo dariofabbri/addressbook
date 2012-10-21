@@ -6,6 +6,17 @@
 	<% if(obj.message) { print(message) } %>
 </div>
 <div class="modal-footer">
-	<a id="cancel" class="btn"><% if(obj.cancelCaption) { print(cancelCaption) } %></a>
-	<a id="ok" class="btn btn-primary"><% if(obj.okCaption) { print(okCaption) } %></a>
+<%
+	if(obj.showCancel) {
+%>
+	<a id="cancel" class="btn"><%=cancelCaption%></a>
+<%
+	}
+	
+	if(obj.showOk) {
+%>
+	<a id="ok" class="btn btn-primary"><%=okCaption%></a>
+<%
+	}
+%>
 </div>

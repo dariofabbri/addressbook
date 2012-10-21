@@ -31,15 +31,16 @@ define([
 			this.on("modaldialog:cancel", options.cancelCallback, options.context);
 			this.on("modaldialog:ok", options.okCallback, options.context);
 			
-			// Render the template passing the captions.
+			// Render the template passing the options.
 			//
-			var captions = {
+			this.$el.html(_.template(modalDialogTemplate, {
 				title: options.title || "Undefined title",
 				message: options.message || "Undefined message",
 				okCaption: options.okCaption || "OK",
-				cancelCaption: options.cancelCaption || "Cancel"
-			};
-			this.$el.html(_.template(modalDialogTemplate, captions));
+				cancelCaption: options.cancelCaption || "Cancel",
+				showOk: options.showOk || false,
+				showCancel: options.showCancel || false
+			}));
 			
 			// Show the modal dialog.
 			//

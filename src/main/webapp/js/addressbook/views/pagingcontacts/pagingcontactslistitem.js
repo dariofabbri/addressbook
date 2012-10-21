@@ -26,9 +26,11 @@ define([
 				title: "Warning",
 				message: "Do you confirm the deletion of the specified contact?",
 				okCaption: "Yes",
-				cancelCaption: "No",
 				okCallback: this.doRemoveItem,
+				showOk: true,
+				cancelCaption: "No",
 				cancelCallback: this.cancelRemoveItem,
+				showCancel: true,
 				context: this
 			});
 		},

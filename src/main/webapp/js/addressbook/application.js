@@ -126,12 +126,16 @@ require([
 
 			Backbone.sync = function(method, model, options) {
 
+				// If no loginInfo is present, move to login form.
+				//
+				if(_.isUndefined(application.loginInfo))
+					Backbone.history.navigate("login", true);
+				
 				// Get security token.
 				//
 				var token = application.loginInfo.get("securityToken");
-				
-				// TODO: check security token (presence, at least).
-				//
+				if(_.isUndefined(token))
+					Backbone.history.navigate("login", true);
 				
 				// Extract passed headers.
 				//
@@ -141,6 +145,30 @@ require([
 				// Set back headers.
 				//
 				options.headers = headers;
+				
+				// Set status code management.
+				//
+				options.statusCode = {
+					401: function() {
+						
+						// Clean application's login info.
+						//
+						application.loginInfo = new LoginInfo();
+						
+						// Signal the unauthorized access.
+						//
+						application.modalDialog.show({
+							title: "Error",
+							message: "Unauthorized access to the server detected, probably the session has expired. You will now be taken to the login page.",
+							okCaption: "OK",
+							okCallback: function() {
+								Backbone.history.navigate("login", true);
+							},
+							showOk: true,
+							context: this
+						});
+					}	
+				};
 				
 				// Call proxied sync.
 				//
