@@ -10,13 +10,40 @@ define([
 		
 		url: "/addressbook/api/contacts",
 		
+		offset: 0,
+		
+		limit: 10,
+		
+		initialize: function() {
+			
+			var that = this;
+			this.on("destroy", function() {
+				that.fetchPage();
+			}, this);
+		},
+		
 		parse: function(response) {
 			
-			this.page = response.page;
-			this.pageSize = response.pageSize;
-			this.recordsFound = response.recordsFound;
+			this.offset = response.offset;
+			this.limit = response.limit;
+			this.records = response.records;
 			
 			return response.results;
+		},
+		
+		fetchPage: function(page) {
+			
+			if(page) {
+				this.offset = this.limit * (page - 1); 
+			}
+
+			var options = {
+				data: {
+					offset: this.offset
+				}	
+			};
+
+			return this.fetch(options);
 		}
 	});
 	

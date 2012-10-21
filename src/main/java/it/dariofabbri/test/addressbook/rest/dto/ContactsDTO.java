@@ -4,34 +4,34 @@ import java.util.List;
 
 public class ContactsDTO {
 
-	private Integer page;
-	private Integer pageSize;
-	private Integer recordsFound;
+	private Integer offset;
+	private Integer limit;
+	private Integer records;
 
 	private List<ContactDTO> results;
 
-	public Integer getPage() {
-		return page;
+	public Integer getOffset() {
+		return offset;
 	}
 
-	public void setPage(Integer page) {
-		this.page = page;
+	public void setOffset(Integer offset) {
+		this.offset = offset;
 	}
 
-	public Integer getPageSize() {
-		return pageSize;
+	public Integer getLimit() {
+		return limit;
 	}
 
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
+	public void setLimit(Integer limit) {
+		this.limit = limit;
 	}
 
-	public Integer getRecordsFound() {
-		return recordsFound;
+	public Integer getRecords() {
+		return records;
 	}
 
-	public void setRecordsFound(Integer recordsFound) {
-		this.recordsFound = recordsFound;
+	public void setRecords(Integer records) {
+		this.records = records;
 	}
 
 	public List<ContactDTO> getResults() {

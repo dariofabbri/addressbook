@@ -26,21 +26,15 @@ define([
 		
 		list: function() {
 			
-			this.collection.fetch();
+			this.collection.fetchPage(1);
 			var view = new PagingContactsListView({collection: this.collection});
 			
 			this.show(view, "#container");
 		},
 		
 		page: function(page) {
-
-			var options = {
-				data: {
-					page: page || 1
-				}	
-			};
 			
-			this.collection.fetch(options);
+			this.collection.fetchPage(page);
 		},
 		
 		create: function() {

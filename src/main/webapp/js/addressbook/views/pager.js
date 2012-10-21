@@ -19,7 +19,7 @@ define([
 		
 		initialize: function(options) {
 			
-			this.collection.on("all", this.render, this);
+			this.collection.on("reset", this.render, this);
 			
 			if(options.baseUrl)
 				this.baseUrl = options.baseUrl;

@@ -93,8 +93,8 @@ public class ContactResource {
 	
 	@GET
 	public Response getContacts(
-			@QueryParam("page") Integer page,
-			@QueryParam("pagesize") Integer pageSize) {
+			@QueryParam("offset") Integer offset,
+			@QueryParam("limit") Integer limit) {
 
 		logger.debug("getContacts called!");
 		
@@ -103,29 +103,26 @@ public class ContactResource {
 			return Response.status(Status.UNAUTHORIZED).entity("Operation not permitted.").build();
 		}
 		
-		if(page == null) {
-			page = 0;
-		}
-		else {
-			page = page - 1;
+		if(offset == null) {
+			offset = 0;
 		}
 		
-		if(pageSize == null) {
-			pageSize = 10;
+		if(limit == null) {
+			limit = 10;
 		}
 		
 		List<ContactDTO> result = new ArrayList<ContactDTO>();
-		for(int i = 0; i < pageSize; ++i) {
-			int j = page * pageSize + i;
+		for(int i = 0; i < limit; ++i) {
+			int j = i + offset;
 			if(j >= contacts.size())
 				break;
 			result.add(contacts.get(j));
 		}
 		
 		ContactsDTO response = new ContactsDTO();
-		response.setPage(page);
-		response.setPageSize(pageSize);
-		response.setRecordsFound(contacts.size());
+		response.setOffset(offset);
+		response.setLimit(limit);
+		response.setRecords(contacts.size());
 		response.setResults(result);
 		
 		return Response.ok().entity(response).build();
