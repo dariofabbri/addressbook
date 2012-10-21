@@ -2,7 +2,7 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"text!templates/contactslistitem.html"], 
+	"text!templates/pagingcontacts/pagingcontactslistitem.html"], 
 	function(_, Backbone, $, itemTemplate) {
 	
 	var view = Backbone.View.extend({
@@ -34,7 +34,7 @@ define([
 		},
 		
 		editItem: function() {
-			Backbone.history.navigate("ContactsEdit/" + this.model.id, true);
+			Backbone.history.navigate("PagingContactsEdit/" + this.model.id, true);
 		},
 		
 		cancelRemoveItem: function() {

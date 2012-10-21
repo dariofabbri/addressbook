@@ -2,8 +2,8 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"text!templates/loginpanel.html",
-	"text!templates/alert.html"], 
+	"text!templates/login/loginpanel.html",
+	"text!templates/common/alert.html"], 
 	function(_, Backbone, $, loginPanelTemplate, alertTemplate) {
 	
 	var loginView = Backbone.View.extend({

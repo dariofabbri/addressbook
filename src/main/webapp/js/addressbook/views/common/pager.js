@@ -2,12 +2,14 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"text!templates/pager.html"], 
+	"text!templates/common/pager.html"], 
 	function(_, Backbone, $, pagerTemplate) {
 	
 	var view = Backbone.View.extend({
 		
 		tagName: "div",
+		
+		className: "row",
 		
 		events: {
 			"click a.page-goto": "gotoPage"

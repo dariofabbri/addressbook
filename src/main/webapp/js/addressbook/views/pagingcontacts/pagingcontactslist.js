@@ -2,9 +2,9 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"addressbook/views/pager",
-	"addressbook/views/pagingcontactslistitem",
-	"text!templates/pagingcontactslist.html"], 
+	"addressbook/views/common/pager",
+	"addressbook/views/pagingcontacts/pagingcontactslistitem",
+	"text!templates/pagingcontacts/pagingcontactslist.html"], 
 	function(_, Backbone, $, Pager, ItemView, listTemplate) {
 	
 	var view = Backbone.View.extend({

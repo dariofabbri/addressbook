@@ -2,7 +2,7 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"text!templates/pagingcontactsedit.html"], 
+	"text!templates/pagingcontacts/pagingcontactsedit.html"], 
 	function(_, Backbone, $, editTemplate) {
 	
 	var view = Backbone.View.extend({

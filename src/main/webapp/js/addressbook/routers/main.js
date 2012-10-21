@@ -1,8 +1,8 @@
 define([
 	"underscore", 
 	"backbone",
-	"addressbook/views/login",
-	"addressbook/views/navbar"], 
+	"addressbook/views/login/login",
+	"addressbook/views/common/navbar"], 
 	function(_, Backbone, LoginView, NavbarView) {
 
 	var main = Backbone.Router.extend({

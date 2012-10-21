@@ -2,7 +2,7 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"text!templates/modaldialog.html"], 
+	"text!templates/common/modaldialog.html"], 
 	function(_, Backbone, $, modalDialogTemplate) {
 	
 	var view = Backbone.View.extend({

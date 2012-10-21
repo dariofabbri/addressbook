@@ -36,3 +36,7 @@ html, body {
 	text-align: right;
 	width: 1px;
 }
+
+.remove-top-margin {
+	margin-top: 0px;
+}

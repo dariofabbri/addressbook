@@ -1,0 +1,67 @@
+<div class="span6">
+	Found <%=collection.records%> record
+</div>
+
+<div class="pagination pagination-right span6 remove-top-margin">
+	<ul>
+<%
+	var currentPage = Math.floor(collection.offset / collection.limit) + 1;
+	var maxPages = Math.ceil(collection.records / collection.limit);
+	
+	var startPage = Math.round(currentPage - buttonsShown / 2);
+	if(startPage < 1)
+		startPage = 1;
+	
+	if(maxPages < buttonsShown)
+		buttonsShown = maxPages;
+		
+	var endPage = startPage + buttonsShown - 1;
+	if(endPage > maxPages) {
+		endPage = maxPages;
+		startPage = endPage - buttonsShown + 1;
+	}
+	
+	if(currentPage > 1) {
+		var prevPage = currentPage - 1;
+%>
+		<li><a href="#" class="page-goto" id="<%=prevPage%>">«</a></li>
+<%
+	}
+	else
+	{
+%>
+		<li class="disabled"><a href="#" class="page-goto">«</a></li>
+<%
+	}
+	
+	for(var i = startPage; i <= endPage; ++i) {
+		if(i != currentPage) {
+%>
+		<li>
+<%		
+		} else {
+%>
+		<li class="disabled">
+<%
+		}
+%>
+			<a href="#" class="page-goto" id="<%=i%>"><%=i%></a>
+		</li>
+<%
+	}
+	
+	if(currentPage < maxPages) {
+		var nextPage = currentPage + 1;
+%>
+		<li><a href="#" class="page-goto" id="<%=nextPage%>">»</a></li>
+<%
+	}
+	else
+	{
+%>
+		<li class="disabled"><a href="#" class="page-goto">»</a></li>
+<%
+	}
+%>
+	</ul>
+</div>

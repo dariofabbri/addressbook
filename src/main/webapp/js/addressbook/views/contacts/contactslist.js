@@ -2,8 +2,8 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"addressbook/views/contactslistitem",
-	"text!templates/contactslist.html"], 
+	"addressbook/views/contacts/contactslistitem",
+	"text!templates/contacts/contactslist.html"], 
 	function(_, Backbone, $, ItemView, listTemplate) {
 	
 	var view = Backbone.View.extend({

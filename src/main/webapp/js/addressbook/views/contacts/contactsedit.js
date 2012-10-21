@@ -2,7 +2,7 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"text!templates/contactsedit.html"], 
+	"text!templates/contacts/contactsedit.html"], 
 	function(_, Backbone, $, editTemplate) {
 	
 	var view = Backbone.View.extend({

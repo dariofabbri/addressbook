@@ -2,7 +2,7 @@ define([
 	"underscore", 
 	"backbone",
 	"jquery",
-	"text!templates/navbar.html"], 
+	"text!templates/common/navbar.html"], 
 	function(_, Backbone, $, navbarTemplate) {
 	
 	var navbarView = Backbone.View.extend({

@@ -36,7 +36,7 @@ require([
 	"addressbook/routers/contacts",
 	"addressbook/routers/pagingcontacts",
 	"addressbook/models/logininfo",
-	"addressbook/views/modaldialog",
+	"addressbook/views/common/modaldialog",
 	"bootstrap"], 
 	function(
 			$, 

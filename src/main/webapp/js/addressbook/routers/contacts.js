@@ -1,8 +1,8 @@
 define([
 	"underscore", 
 	"backbone",
-	"addressbook/views/contactslist",
-	"addressbook/views/contactsedit",
+	"addressbook/views/contacts/contactslist",
+	"addressbook/views/contacts/contactsedit",
 	"addressbook/models/contact",
 	"addressbook/collections/contacts"], 
 	function(
