@@ -33,13 +33,11 @@ define([
 			var lastName = $("#lastname").val();
 			var phoneNumber = $("#phonenumber").val();
 
-			this.collection.fetchPage({
-				data: {
-					firstName: firstName,
-					lastName: lastName,
-					phoneNumber: phoneNumber
-				},
-				
+			this.collection.fetchPage(1, {
+				firstName: firstName,
+				lastName: lastName,
+				phoneNumber: phoneNumber
+			}, {
 				success: function() {
 					Backbone.history.navigate("PagingContactsList", true);		
 				}

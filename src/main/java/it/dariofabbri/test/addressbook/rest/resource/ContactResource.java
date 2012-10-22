@@ -93,6 +93,9 @@ public class ContactResource {
 	
 	@GET
 	public Response getContacts(
+			@QueryParam("firstName") String firstName,
+			@QueryParam("lastName") String lastName,
+			@QueryParam("phoneNumber") String phoneNumber,
 			@QueryParam("offset") Integer offset,
 			@QueryParam("limit") Integer limit) {
 
@@ -111,18 +114,39 @@ public class ContactResource {
 			limit = 10;
 		}
 		
+		List<ContactDTO> filteredList = new ArrayList<ContactDTO>();
+		for(ContactDTO c : contacts) {
+			
+			if(firstName != null) {
+				if(!c.getFirstName().contains(firstName))
+					continue;
+			}
+			
+			if(lastName != null) {
+				if(!c.getLastName().contains(lastName))
+					continue;
+			}
+			
+			if(phoneNumber != null) {
+				if(!c.getPhoneNumber().contains(phoneNumber))
+					continue;
+			}
+
+			filteredList.add(c);
+		}
+		
 		List<ContactDTO> result = new ArrayList<ContactDTO>();
 		for(int i = 0; i < limit; ++i) {
 			int j = i + offset;
-			if(j >= contacts.size())
+			if(j >= filteredList.size())
 				break;
-			result.add(contacts.get(j));
+			result.add(filteredList.get(j));
 		}
 		
 		ContactsDTO response = new ContactsDTO();
 		response.setOffset(offset);
 		response.setLimit(limit);
-		response.setRecords(contacts.size());
+		response.setRecords(filteredList.size());
 		response.setResults(result);
 		
 		return Response.ok().entity(response).build();

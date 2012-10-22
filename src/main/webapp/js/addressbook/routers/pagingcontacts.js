@@ -29,7 +29,7 @@ define([
 		
 		list: function() {
 			
-			this.collection.fetchPage({ page: 1 });
+			this.collection.fetchPage();
 			var view = new PagingContactsListView({collection: this.collection});
 			
 			this.show(view, "#container");
@@ -37,7 +37,7 @@ define([
 		
 		page: function(page) {
 			
-			this.collection.fetchPage({ page: page });
+			this.collection.fetchPage(page);
 		},
 		
 		create: function() {
