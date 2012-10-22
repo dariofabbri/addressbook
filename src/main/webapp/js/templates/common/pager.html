@@ -1,12 +1,12 @@
 <div class="span6">
-	Found <%=collection.records%> record
+	Found <%=collection.options.records%> record
 </div>
 
 <div class="pagination pagination-right span6 remove-top-margin">
 	<ul>
 <%
-	var currentPage = Math.floor(collection.offset / collection.limit) + 1;
-	var maxPages = Math.ceil(collection.records / collection.limit);
+	var currentPage = Math.floor(collection.options.data.offset / collection.options.data.limit) + 1;
+	var maxPages = Math.ceil(collection.options.records / collection.options.data.limit);
 	
 	var startPage = Math.round(currentPage - buttonsShown / 2);
 	if(startPage < 1)

@@ -3,6 +3,7 @@ define([
 	"backbone",
 	"addressbook/views/pagingcontacts/pagingcontactslist",
 	"addressbook/views/pagingcontacts/pagingcontactsedit",
+	"addressbook/views/pagingcontacts/pagingcontactssearch",
 	"addressbook/models/contact",
 	"addressbook/collections/contacts"], 
 	function(
@@ -10,6 +11,7 @@ define([
 			Backbone, 
 			PagingContactsListView, 
 			PagingContactsEditView,
+			PagingContactsSearchView,
 			Contact,
 			Contacts) {
 
@@ -21,12 +23,13 @@ define([
 			"PagingContactsList": "list",
 			"PagingContactsList/page/:page": "page",
 			"PagingContactsNew": "create",
-			"PagingContactsEdit/:id": "edit"
+			"PagingContactsEdit/:id": "edit",
+			"PagingContactsSearch": "search",
 		},
 		
 		list: function() {
 			
-			this.collection.fetchPage(1);
+			this.collection.fetchPage({ page: 1 });
 			var view = new PagingContactsListView({collection: this.collection});
 			
 			this.show(view, "#container");
@@ -34,7 +37,7 @@ define([
 		
 		page: function(page) {
 			
-			this.collection.fetchPage(page);
+			this.collection.fetchPage({ page: page });
 		},
 		
 		create: function() {
@@ -51,6 +54,12 @@ define([
 			model.fetch();
 			var view = new PagingContactsEditView({model: model});
 			
+			this.show(view, "#container");
+		},
+		
+		search: function() {
+
+			var view = new PagingContactsSearchView({collection: this.collection});
 			this.show(view, "#container");
 		}
 	});

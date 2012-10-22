@@ -1,0 +1,40 @@
+<form class="well form-horizontal">
+	<legend>Search form</legend>
+	<div class="control-group">
+		<label class="control-label" for="firstname">First name: </label>
+		<div class="controls">
+			<input 
+				id="firstname" 
+				type="text" 
+				placeholder="Type part of the first name to filter"
+				value="<%=collection.options.data.firstName%>" />
+			<span class="help-inline"></span>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="lastname">Last name: </label>
+		<div class="controls">
+			<input 
+				id="lastname" 
+				type="text" 
+				placeholder="Type part of the last name to filter" 
+				value="<%=collection.options.data.lastName%>"/>
+			<span class="help-inline"></span>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="phonenumber">Phone number: </label>
+		<div class="controls">
+			<input 
+				id="phonenumber" 
+				type="text" 
+				placeholder="Type part of the phone number to filter"
+				value="<%=collection.options.data.phoneNumber%>" />
+			<span class="help-inline"></span>
+		</div>
+	</div>
+	<div class="form-actions">
+		<a id="cancel" class="btn">Cancel</a>
+		<a id="search" class="btn btn-primary">Search</a>
+	</div>
+</form>

@@ -12,7 +12,8 @@ define([
 		tagName: "div",
 		
 		events: {
-			"click a#add": "addItem"
+			"click a#add": "addItem",
+			"click a#search": "search"
 		},
 		
 		initialize: function() {
@@ -48,6 +49,11 @@ define([
 		addItem: function() {
 			
 			Backbone.history.navigate("PagingContactsNew", true);
+		},
+		
+		search: function() {
+			
+			Backbone.history.navigate("PagingContactsSearch", true);
 		}
 	});
 	
