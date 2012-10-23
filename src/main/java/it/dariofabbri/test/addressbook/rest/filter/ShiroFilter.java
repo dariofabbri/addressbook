@@ -73,6 +73,7 @@ public class ShiroFilter implements Filter {
 		// SecurityResource token must be present.
 		//
 		if(token == null) {
+			logger.info("No token found in request header.");
 			raiseSecurityError(response, "Null token detected");
 			return;
 		}
@@ -82,10 +83,19 @@ public class ShiroFilter implements Filter {
 		try {
 			Session session = SecurityUtils.getSecurityManager().getSession(new DefaultSessionKey(token));
 			if(session == null) {
+				logger.info("Unable to find a valid session using token.");
 				raiseSecurityError(response, "Invalid session token.");
 				return;
 			}
+			
+			// Ensure that the last accessed timestamp gets updated. This should be made
+			// internally by Shiro, but it looks like it is not working. Maybe the pattern
+			// employed here to get the session is not canonical...
+			//
+			session.touch();
+			
 		} catch(SessionException se) {
+			logger.info(se.getMessage());
 			raiseSecurityError(response, "Invalid session token. Cause: " + se.getMessage());
 			return;
 		}
@@ -116,7 +126,6 @@ public class ShiroFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 
