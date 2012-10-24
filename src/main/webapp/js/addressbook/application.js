@@ -79,15 +79,36 @@ require([
 			//
 			var oldView = viewManager[selector];
 			if(oldView) {
+				oldView.close();
 				delete viewManager[selector];
 			}
 			
 			$(selector).fadeOut();
-			if(oldView) {
-				oldView.remove();
-				oldView.unbind();
-			}
 		};
+		
+		Backbone.View.prototype.close = function() {
+			this.remove();
+			this.unbind();
+			
+			if (this.onClose){
+				this.onClose();
+			}
+			
+			this.cleanChildViews();
+		};
+		
+		Backbone.View.prototype.cleanChildViews = function() {
+			
+			if(this.childViews) {
+				_.each(this.childViews, function(childView) {
+					if(childView.close)
+						childView.close();
+				});
+			}			
+			
+			delete this.childViews;
+			this.childViews = [];
+		};	
 		
 		Backbone.View.prototype.highlightField = function(fieldSelector, cssClass, text) {
 			

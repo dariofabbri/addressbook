@@ -21,8 +21,16 @@ define([
 			this.collection.on("reset", this.render, this);
 		},
 		
+		onClose: function() {
+			this.collection.off("reset", this.render);
+		},
+		
+		childViews: [],
+		
 		render: function() {
-
+			
+			this.cleanChildViews();
+			
 			// Show main part of the view.
 			//
 			this.$el.html(_.template(listTemplate, {
@@ -43,6 +51,7 @@ define([
 				collection: this.collection,
 				baseUrl: "PagingContactsList/page/"
 			});
+			this.childViews.push(pager);
 			this.$el.append(pager.render().el);
 			
 			return this;
@@ -53,6 +62,7 @@ define([
 			var itemView = new ItemView({
 				model : item
 			});
+			this.childViews.push(itemView);
 			$("tbody", this.el).append(itemView.render().el);
 		},
 		
