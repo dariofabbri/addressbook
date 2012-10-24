@@ -13,7 +13,8 @@ define([
 		
 		events: {
 			"click a#add": "addItem",
-			"click a#search": "search"
+			"click a#search": "search",
+			"click a#reset-filters": "resetFilters",
 		},
 		
 		initialize: function() {
@@ -22,7 +23,16 @@ define([
 		
 		render: function() {
 
-			this.$el.html(_.template(listTemplate));
+			// Show main part of the view.
+			//
+			this.$el.html(_.template(listTemplate, {
+				collection: this.collection
+			}));
+			
+			// If the collection has filters applied, 
+			// show special button.
+			//
+			$("a#reset-filters", this.el).tooltip("show");
 
 			var that = this;
 			_.each(this.collection.models, function(item) {
@@ -54,6 +64,14 @@ define([
 		search: function() {
 			
 			Backbone.history.navigate("PagingContactsSearch", true);
+		},
+
+		resetFilters: function() {
+
+			$("a#reset-filters", this.el).tooltip("destroy");
+
+			this.collection.resetFilters();
+			this.collection.fetchPage();
 		}
 	});
 	

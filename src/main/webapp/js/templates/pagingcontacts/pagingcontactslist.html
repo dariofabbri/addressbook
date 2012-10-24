@@ -3,10 +3,19 @@
 	<thead>
 		<tr>
 			<td colspan="4" class="btn-column">
-				<a id="reset-filters" class="btn hide">
-					<i class="icon-search"/>
+			<%
+				if(collection.hasFilters()) {
+			%>
+				<a id="reset-filters" 
+					class="btn" 
+					rel="tooltip" 
+					title="There filters applied to this search panel. Click here to remove.">
+					<i class="icon-off"/>
 					Reset filters
 				</a>
+			<%
+				}
+			%>
 				<a id="search" class="btn">
 					<i class="icon-search"/>
 					Apply filter

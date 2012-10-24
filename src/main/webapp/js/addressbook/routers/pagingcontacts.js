@@ -24,7 +24,7 @@ define([
 			"PagingContactsList/page/:page": "page",
 			"PagingContactsNew": "create",
 			"PagingContactsEdit/:id": "edit",
-			"PagingContactsSearch": "search",
+			"PagingContactsSearch": "search"
 		},
 		
 		list: function() {

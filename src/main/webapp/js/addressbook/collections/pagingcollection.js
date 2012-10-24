@@ -64,6 +64,16 @@ define([
 			// Fetch using filled in options object.
 			//
 			return this.fetch(options);
+		},
+		
+		hasFilters: function() {
+			return ! _.isEmpty(this.queryArguments);
+		},
+		
+		resetFilters: function() {
+			
+			this.queryArguments = {};
+			this.offset = 0;
 		}
 	});
 	
