@@ -38,32 +38,46 @@ define([
 			}));
 			
 			// If the collection has filters applied, 
-			// show special button.
+			// show the special button to clean up filters.
 			//
 			$("a#reset-filters", this.el).tooltip("show");
 
+			// Render an item view for each model in the collection.
+			//
 			var that = this;
 			_.each(this.collection.models, function(item) {
 				that.renderItem(item);
 			}, this);
 			
+			// Add a pager at the bottom of the view.
+			//
 			var pager = new Pager({
 				collection: this.collection,
 				baseUrl: "PagingContactsList/page/"
 			});
-			this.childViews.push(pager);
 			this.$el.append(pager.render().el);
+			
+			// Store the pager view in the list of child views, to avoid
+			// memory leaks.
+			//
+			this.childViews.push(pager);
 			
 			return this;
 		},
 		
 		renderItem: function(item) {
 			
+			// Create and render the item view.
+			//
 			var itemView = new ItemView({
 				model : item
 			});
-			this.childViews.push(itemView);
 			$("tbody", this.el).append(itemView.render().el);
+			
+			// Store the item view in the list of child views, to avoid
+			// memory leaks.
+			//
+			this.childViews.push(itemView);
 		},
 		
 		addItem: function() {
