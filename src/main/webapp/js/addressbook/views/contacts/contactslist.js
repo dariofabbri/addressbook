@@ -18,7 +18,15 @@ define([
 			this.collection.on("all", this.render, this);
 		},
 		
+		onClose: function() {
+			this.collection.off("all", this.render);
+		},
+		
+		childViews: [],
+
 		render: function() {
+
+			this.cleanChildViews();
 
 			this.$el.html(_.template(listTemplate));
 
@@ -32,10 +40,17 @@ define([
 		
 		renderItem: function(item) {
 			
+			// Create child view and add it to table body.
+			//
 			var itemView = new ItemView({
 				model : item
 			});
 			$("tbody", this.el).append(itemView.render().el);
+			
+			// Store the item view in the list of child views, to avoid
+			// memory leaks.
+			//
+			this.childViews.push(itemView);
 		},
 		
 		addItem: function() {

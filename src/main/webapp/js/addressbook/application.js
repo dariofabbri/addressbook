@@ -104,10 +104,9 @@ require([
 					if(childView.close)
 						childView.close();
 				});
+				
+				this.childViews = [];
 			}			
-			
-			delete this.childViews;
-			this.childViews = [];
 		};	
 		
 		Backbone.View.prototype.highlightField = function(fieldSelector, cssClass, text) {
@@ -141,7 +140,7 @@ require([
 			}
 		};
 
-				
+
 		(function() {
 			var proxied = Backbone.sync;
 
@@ -196,6 +195,7 @@ require([
 				return proxied(method, model, options);
 			};
 		})();
+
 		
 		application.routers = [];
 		application.routers.push(new MainRouter());

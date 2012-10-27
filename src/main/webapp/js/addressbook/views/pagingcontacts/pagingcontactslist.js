@@ -28,7 +28,7 @@ define([
 		childViews: [],
 		
 		render: function() {
-			
+
 			this.cleanChildViews();
 			
 			// Show main part of the view.
@@ -48,6 +48,7 @@ define([
 			_.each(this.collection.models, function(item) {
 				that.renderItem(item);
 			}, this);
+			that = null;
 			
 			// Add a pager at the bottom of the view.
 			//

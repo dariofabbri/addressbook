@@ -17,6 +17,8 @@ define([
 
 	var pagingContacts = Backbone.Router.extend({
 		
+		i: 0,
+		
 		collection: new Contacts(),
 		
 		routes: {

@@ -31,7 +31,7 @@ define([
 					that.set("username", username);
 				}
 			});
-			
+
 			return this.get("loggedOn");
 		}
 	});
