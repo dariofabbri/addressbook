@@ -2,8 +2,14 @@ define([
 	"underscore", 
 	"backbone",
 	"addressbook/views/login/login",
-	"addressbook/views/common/navbar"], 
-	function(_, Backbone, LoginView, NavbarView) {
+	"addressbook/views/common/navbar",
+	"addressbook/views/common/footer"], 
+	function(
+			_, 
+			Backbone, 
+			LoginView, 
+			NavbarView,
+			FooterView) {
 
 	var main = Backbone.Router.extend({
 		
@@ -14,17 +20,21 @@ define([
 		
 		login: function() {
 			this.close("#navbar");
+			this.close("#footer");
 
-			var newView = new LoginView();
-			this.show(newView, "#container");
+			var view = new LoginView();
+			this.show(view, "#container");
 		},
 		
 		home: function() {
 			this.close("#container");
 
-			var newView = new NavbarView();
-			this.show(newView, "#navbar");
-		},
+			var navbar = new NavbarView();
+			this.show(navbar, "#navbar");
+			
+			var footer = new FooterView();
+			this.show(footer, "#footer");
+		}
 	});
 
 	return main;
