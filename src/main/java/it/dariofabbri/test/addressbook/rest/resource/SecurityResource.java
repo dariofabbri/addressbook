@@ -1,8 +1,10 @@
 package it.dariofabbri.test.addressbook.rest.resource;
 
 
+import it.dariofabbri.test.addressbook.model.user.User;
 import it.dariofabbri.test.addressbook.rest.dto.CredentialsDTO;
 import it.dariofabbri.test.addressbook.rest.dto.TokenDTO;
+import it.dariofabbri.test.addressbook.util.HibernateUtil;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -110,7 +112,7 @@ public class SecurityResource {
 	
 		
 		
-		
+
 	@GET
 	@Path("/ds")
 	public Response getDs() {
@@ -155,6 +157,23 @@ public class SecurityResource {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		return Response.ok().build();
+	}
+
+	@GET
+	@Path("/ds1")
+	public Response getDs1() {
+		
+		logger.debug("getDs1 called!");
+		
+		org.hibernate.Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		
+		User user = (User)session.load(User.class, new Integer(1));
+		System.out.println(user);
+		
+		session.close();
 		
 		return Response.ok().build();
 	}

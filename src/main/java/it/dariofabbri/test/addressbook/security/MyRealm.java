@@ -1,5 +1,8 @@
 package it.dariofabbri.test.addressbook.security;
 
+import it.dariofabbri.test.addressbook.model.user.User;
+import it.dariofabbri.test.addressbook.model.user.UserDao;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,10 +35,13 @@ public class MyRealm extends AuthorizingRealm {
 					"Null usernames are not allowed by this realm.");
 		}
 
-		if (!username.equals("admin"))
-			throw new UnknownAccountException("No account found for user ["
-					+ username + "]");
-		String password = "admin";
+		// Lookup user.
+		//
+		UserDao udao = new UserDao();
+		User user = udao.getByUsername(username);
+		if (user == null)
+			throw new UnknownAccountException("No account found for user [" + username + "]");
+		String password = user.getPassword();
 
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(username,
 				password.toCharArray(), getName());
