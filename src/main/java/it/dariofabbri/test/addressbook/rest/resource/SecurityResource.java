@@ -4,8 +4,16 @@ package it.dariofabbri.test.addressbook.rest.resource;
 import it.dariofabbri.test.addressbook.rest.dto.CredentialsDTO;
 import it.dariofabbri.test.addressbook.rest.dto.TokenDTO;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -99,4 +107,55 @@ public class SecurityResource {
 					.build();		
 		}
 	}	
+	
+		
+		
+		
+	@GET
+	@Path("/ds")
+	public Response getDs() {
+		
+		logger.debug("getDs called!");
+		
+		try {
+			InitialContext cxt = new InitialContext();
+			DataSource ds = (DataSource) cxt.lookup( "java:/comp/env/jdbc/TestDB" );
+		
+			if ( ds == null ) {
+			   throw new Exception("Data source not found!");
+			}
+			
+			Connection connection = ds.getConnection();
+			DatabaseMetaData dbmd = connection.getMetaData();
+			ResultSet rs = dbmd.getTables(null, null, null, null);
+			while(rs.next()) {
+				
+				System.out.println(String.format("%s", 
+						rs.getString("TABLE_NAME")));
+				
+			}
+			rs.close();
+			
+			
+			Statement statement = connection.createStatement();
+			rs = statement.executeQuery("SELECT * FROM TEST_TABLE");
+			while(rs.next()) {
+				
+				System.out.println(String.format("(%d, %s, %s)", 
+						rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3)));
+				
+			}
+			
+			rs.close();
+			statement.close();
+			connection.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return Response.ok().build();
+	}
 }

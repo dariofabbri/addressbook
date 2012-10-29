@@ -1,0 +1,9 @@
+CREATE SCHEMA PUBLIC AUTHORIZATION DBA
+CREATE USER SA PASSWORD ""
+GRANT DBA TO SA
+SET SCHEMA PUBLIC
+CREATE TABLE TEST_TABLE (id integer,	name varchar(255), surname varchar(255))
+INSERT INTO TEST_TABLE (id, name, surname) VALUES (1, 'Pippo', 'Pippo')
+INSERT INTO TEST_TABLE (id, name, surname) VALUES (2, 'Pluto', 'Pluto')
+INSERT INTO TEST_TABLE (id, name, surname) VALUES (3, 'Paperino', 'Paperino')
+SHUTDOWN
