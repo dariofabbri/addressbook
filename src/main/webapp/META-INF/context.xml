@@ -30,4 +30,10 @@
                username="SA" password="" driverClassName="org.hsqldb.jdbcDriver"
                url="jdbc:hsqldb:res:/data/db"/>
 
+  <Resource name="jdbc/ivncr" auth="Container" type="javax.sql.DataSource"
+               maxActive="100" maxIdle="30" maxWait="10000"
+               username="ivncr" password="ivncr" 
+               driverClassName="org.postgresql.Driver"
+               url="jdbc:postgresql://localhost:5432/ivncr"/>
+
 </Context>

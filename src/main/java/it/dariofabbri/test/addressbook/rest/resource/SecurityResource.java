@@ -119,7 +119,7 @@ public class SecurityResource {
 		
 		try {
 			InitialContext cxt = new InitialContext();
-			DataSource ds = (DataSource) cxt.lookup( "java:/comp/env/jdbc/TestDB" );
+			DataSource ds = (DataSource) cxt.lookup( "java:/comp/env/jdbc/ivncr" );
 		
 			if ( ds == null ) {
 			   throw new Exception("Data source not found!");
@@ -130,7 +130,8 @@ public class SecurityResource {
 			ResultSet rs = dbmd.getTables(null, null, null, null);
 			while(rs.next()) {
 				
-				System.out.println(String.format("%s", 
+				System.out.println(String.format("%s.%s",
+						rs.getString("TABLE_SCHEM"),
 						rs.getString("TABLE_NAME")));
 				
 			}
@@ -138,14 +139,13 @@ public class SecurityResource {
 			
 			
 			Statement statement = connection.createStatement();
-			rs = statement.executeQuery("SELECT * FROM TEST_TABLE");
+			rs = statement.executeQuery("SELECT * FROM sec_user");
 			while(rs.next()) {
 				
 				System.out.println(String.format("(%d, %s, %s)", 
 						rs.getInt(1),
 						rs.getString(2),
 						rs.getString(3)));
-				
 			}
 			
 			rs.close();
