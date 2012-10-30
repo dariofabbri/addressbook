@@ -1,12 +1,13 @@
-package it.dariofabbri.test.addressbook.service.local;
+package it.dariofabbri.test.addressbook.service.local.security;
 
 import it.dariofabbri.test.addressbook.model.permission.Permission;
 import it.dariofabbri.test.addressbook.model.role.Role;
 import it.dariofabbri.test.addressbook.model.user.User;
+import it.dariofabbri.test.addressbook.service.local.Service;
 
 import java.util.List;
 
-public interface NewSecurityService {
+public interface SecurityService extends Service {
 
 	User getByUsername(String username);
 

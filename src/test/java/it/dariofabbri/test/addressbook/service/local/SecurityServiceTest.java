@@ -1,6 +1,7 @@
 package it.dariofabbri.test.addressbook.service.local;
 
 import it.dariofabbri.test.addressbook.model.user.User;
+import it.dariofabbri.test.addressbook.service.local.security.SecurityService;
 import it.dariofabbri.test.addressbook.util.HibernateUtil;
 
 import java.net.URL;
@@ -29,17 +30,9 @@ public class SecurityServiceTest {
 	@Test
 	public void test() {
 		
-		SecurityService ss = new SecurityService();
+		SecurityService ss = ServiceFactory.getSecurityService();
+		
 		User user = ss.getByUsername("admin");
-		System.out.println(user);
-	}
-	
-	@Test
-	public void testNew() {
-		
-		NewSecurityService nss = Decorator.<NewSecurityService>createProxy(new NewSecurityServiceImpl(), NewSecurityService.class);
-		
-		User user = nss.getByUsername("admin");
 		System.out.println(user);
 	}
 }

@@ -3,7 +3,8 @@ package it.dariofabbri.test.addressbook.security.realms;
 import it.dariofabbri.test.addressbook.model.permission.Permission;
 import it.dariofabbri.test.addressbook.model.role.Role;
 import it.dariofabbri.test.addressbook.model.user.User;
-import it.dariofabbri.test.addressbook.service.local.SecurityService;
+import it.dariofabbri.test.addressbook.service.local.ServiceFactory;
+import it.dariofabbri.test.addressbook.service.local.security.SecurityService;
 
 import java.util.HashSet;
 import java.util.List;
@@ -40,7 +41,7 @@ public class DatabaseBackedRealm extends AuthorizingRealm {
 
 		// Lookup user.
 		//
-		SecurityService ss = new SecurityService();
+		SecurityService ss = ServiceFactory.getSecurityService();
 		User user = ss.getByUsername(username);
 		if (user == null)
 			throw new UnknownAccountException("No account found for user [" + username + "]");
@@ -74,7 +75,7 @@ public class DatabaseBackedRealm extends AuthorizingRealm {
 		
 		// Look up roles.
 		//
-		SecurityService ss = new SecurityService();
+		SecurityService ss = ServiceFactory.getSecurityService();
 		List<Role> rolesList = ss.getUserRoles(username);
 		Set<String> roles = new HashSet<String>();
 		for(Role r : rolesList)
