@@ -30,7 +30,7 @@ public class SecurityServiceTest {
 	@Test
 	public void test() {
 		
-		SecurityService ss = ServiceFactory.getSecurityService();
+		SecurityService ss = ServiceFactory.createSecurityService();
 		
 		User user = ss.getByUsername("admin");
 		System.out.println(user);

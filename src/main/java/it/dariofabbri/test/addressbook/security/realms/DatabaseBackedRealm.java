@@ -41,7 +41,7 @@ public class DatabaseBackedRealm extends AuthorizingRealm {
 
 		// Lookup user.
 		//
-		SecurityService ss = ServiceFactory.getSecurityService();
+		SecurityService ss = ServiceFactory.createSecurityService();
 		User user = ss.getByUsername(username);
 		if (user == null)
 			throw new UnknownAccountException("No account found for user [" + username + "]");
@@ -75,7 +75,7 @@ public class DatabaseBackedRealm extends AuthorizingRealm {
 		
 		// Look up roles.
 		//
-		SecurityService ss = ServiceFactory.getSecurityService();
+		SecurityService ss = ServiceFactory.createSecurityService();
 		List<Role> rolesList = ss.getUserRoles(username);
 		Set<String> roles = new HashSet<String>();
 		for(Role r : rolesList)

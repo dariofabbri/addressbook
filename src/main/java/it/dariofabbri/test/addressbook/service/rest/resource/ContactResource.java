@@ -1,12 +1,14 @@
 package it.dariofabbri.test.addressbook.service.rest.resource;
 
 
+import it.dariofabbri.test.addressbook.model.contact.Contact;
+import it.dariofabbri.test.addressbook.service.local.ServiceFactory;
+import it.dariofabbri.test.addressbook.service.local.contact.ContactService;
 import it.dariofabbri.test.addressbook.service.rest.dto.ContactDTO;
 import it.dariofabbri.test.addressbook.service.rest.dto.ContactsDTO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -31,66 +33,6 @@ public class ContactResource {
 
 	private static final Logger logger = LoggerFactory.getLogger(ContactResource.class);
 	
-	private static List<ContactDTO> contacts;
-	
-	static {
-		contacts = new ArrayList<ContactDTO>();
-		
-		ContactDTO contact = new ContactDTO();
-		contact.setId(1);
-		contact.setFirstName("Mario");
-		contact.setLastName("Rossi");
-		contact.setPhoneNumber("338.123456");
-		contacts.add(contact);
-		
-		contact = new ContactDTO();
-		contact.setId(2);
-		contact.setFirstName("Luigi");
-		contact.setLastName("Bianchi");
-		contact.setPhoneNumber("338.234567");
-		contacts.add(contact);
-		
-		contact = new ContactDTO();
-		contact.setId(3);
-		contact.setFirstName("Gino");
-		contact.setLastName("Verdi");
-		contact.setPhoneNumber("338.345678");
-		contacts.add(contact);
-		
-		for(int i = 0; i < 100; ++i) {
-			contact = new ContactDTO();
-			contact.setId(4 + i);
-			contact.setFirstName(buildRandomName());
-			contact.setLastName(buildRandomName());
-			contact.setPhoneNumber(buildRandomPhone());
-			contacts.add(contact);
-		}
-	}
-	
-	private static String buildRandomName() {
-		
-		Random rnd = new Random();
-		int length = rnd.nextInt(40);
-		
-		StringBuffer sb = new StringBuffer();
-		for(int i = 0; i < length; ++i) {
-			sb.append((char)('A' + rnd.nextInt(26)));
-		}
-		return sb.toString();
-	}
-	
-	private static String buildRandomPhone() {
-		
-		Random rnd = new Random();
-		int length = rnd.nextInt(15);
-		
-		StringBuffer sb = new StringBuffer();
-		for(int i = 0; i < length; ++i) {
-			sb.append((char)('0' + rnd.nextInt(10)));
-		}
-		return sb.toString();
-	}
-	
 	@GET
 	public Response getContacts(
 			@QueryParam("firstName") String firstName,
@@ -114,39 +56,25 @@ public class ContactResource {
 			limit = 10;
 		}
 		
-		List<ContactDTO> filteredList = new ArrayList<ContactDTO>();
-		for(ContactDTO c : contacts) {
-			
-			if(firstName != null) {
-				if(!c.getFirstName().contains(firstName))
-					continue;
-			}
-			
-			if(lastName != null) {
-				if(!c.getLastName().contains(lastName))
-					continue;
-			}
-			
-			if(phoneNumber != null) {
-				if(!c.getPhoneNumber().contains(phoneNumber))
-					continue;
-			}
-
-			filteredList.add(c);
-		}
+		ContactService cs = ServiceFactory.createContactService();
+		List<Contact> list = cs.listContacts();
 		
 		List<ContactDTO> result = new ArrayList<ContactDTO>();
-		for(int i = 0; i < limit; ++i) {
-			int j = i + offset;
-			if(j >= filteredList.size())
-				break;
-			result.add(filteredList.get(j));
+		for(Contact contact : list) {
+			
+			ContactDTO cdto = new ContactDTO();
+			cdto.setId(contact.getId());
+			cdto.setFirstName(contact.getFirstName());
+			cdto.setLastName(contact.getLastName());
+			cdto.setPhoneNumber(contact.getPhoneNumber());
+			
+			result.add(cdto);
 		}
 		
 		ContactsDTO response = new ContactsDTO();
 		response.setOffset(offset);
 		response.setLimit(limit);
-		response.setRecords(filteredList.size());
+		response.setRecords(list.size());
 		response.setResults(result);
 		
 		return Response.ok().entity(response).build();
@@ -163,7 +91,8 @@ public class ContactResource {
 			return Response.status(Status.UNAUTHORIZED).entity("Operation not permitted.").build();
 		}
 		
-		ContactDTO contact = findById(id);
+		ContactService cs = ServiceFactory.createContactService();
+		Contact contact = cs.retrieveContactById(id);
 		
 		return Response.ok().entity(contact).build();
 	}
@@ -179,10 +108,10 @@ public class ContactResource {
 			return Response.status(Status.UNAUTHORIZED).entity("Operation not permitted.").build();
 		}
 		
-		ContactDTO contactToBeDeleted = findById(id);
+		ContactService cs = ServiceFactory.createContactService();
+		boolean result = cs.deleteContactById(id);
 		
-		if(contactToBeDeleted != null) {
-			contacts.remove(contactToBeDeleted);
+		if(result) {
 			return Response.ok().build();
 		}
 		else {
@@ -201,11 +130,18 @@ public class ContactResource {
 			return Response.status(Status.UNAUTHORIZED).entity("Operation not permitted.").build();
 		}
 
-		if(contact.getId() == null)
-			contact.setId(getNextId());
+		ContactService cs = ServiceFactory.createContactService();
+		boolean result = cs.createContact(
+				contact.getFirstName(),
+				contact.getLastName(),
+				contact.getPhoneNumber());
 		
-		contacts.add(contact);
-		return Response.ok().build();
+		if(result) {
+			return Response.ok().build();
+		}
+		else {
+			return Response.status(Status.CONFLICT).build();
+		}
 	}
 	
 	@PUT
@@ -219,43 +155,19 @@ public class ContactResource {
 		if(!currentUser.isPermitted("contacts:update")) {
 			return Response.status(Status.UNAUTHORIZED).entity("Operation not permitted.").build();
 		}
+
+		ContactService cs = ServiceFactory.createContactService();
+		boolean result = cs.updateContact(
+				id,
+				contact.getFirstName(),
+				contact.getLastName(),
+				contact.getPhoneNumber());
 		
-		ContactDTO contactToBeUpdated = findById(id);
-		
-		if(contactToBeUpdated != null) {
-			contactToBeUpdated.setFirstName(contact.getFirstName());
-			contactToBeUpdated.setLastName(contact.getLastName());
-			contactToBeUpdated.setPhoneNumber(contact.getPhoneNumber());
+		if(result) {
 			return Response.ok().build();
 		}
 		else {
 			return Response.status(Status.NOT_FOUND).build();
 		}
-	}
-	
-	private ContactDTO findById(Integer id) {
-		
-		ContactDTO foundContact = null;
-		for(ContactDTO contact : contacts) {
-			if(contact.getId().equals(id)) {
-				foundContact = contact;
-			}
-		}
-
-		return foundContact;
-	}
-	
-	private Integer getNextId() {
-		Integer max = null;
-		for(ContactDTO contact : contacts) {
-			if(max == null) {
-				max = contact.getId();
-			}
-			else if(max < contact.getId()) {
-				max = contact.getId();
-			}
-		}
-
-		return max == null ? 1 : max + 1;
 	}
 }

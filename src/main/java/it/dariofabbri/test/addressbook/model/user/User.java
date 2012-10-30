@@ -7,10 +7,12 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +20,8 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "sec_user_id_seq")
+	@SequenceGenerator(name = "sec_user_id_seq", sequenceName = "sec_user_id_seq")
 	@Column(name="id")
 	private Integer id;
 	

@@ -36,6 +36,7 @@
         <mapping class="it.dariofabbri.test.addressbook.model.user.User" />
         <mapping class="it.dariofabbri.test.addressbook.model.role.Role" />
         <mapping class="it.dariofabbri.test.addressbook.model.permission.Permission" />
+        <mapping class="it.dariofabbri.test.addressbook.model.contact.Contact" />
 
     </session-factory>
 
