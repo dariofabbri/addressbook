@@ -1,9 +1,12 @@
-package it.dariofabbri.test.addressbook.security;
+package it.dariofabbri.test.addressbook.security.realms;
 
+import it.dariofabbri.test.addressbook.model.permission.Permission;
+import it.dariofabbri.test.addressbook.model.role.Role;
 import it.dariofabbri.test.addressbook.model.user.User;
-import it.dariofabbri.test.addressbook.model.user.UserDao;
+import it.dariofabbri.test.addressbook.service.local.SecurityService;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.shiro.authc.AccountException;
@@ -19,7 +22,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
-public class MyRealm extends AuthorizingRealm {
+public class DatabaseBackedRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
@@ -37,8 +40,8 @@ public class MyRealm extends AuthorizingRealm {
 
 		// Lookup user.
 		//
-		UserDao udao = new UserDao();
-		User user = udao.getByUsername(username);
+		SecurityService ss = new SecurityService();
+		User user = ss.getByUsername(username);
 		if (user == null)
 			throw new UnknownAccountException("No account found for user [" + username + "]");
 		String password = user.getPassword();
@@ -68,11 +71,21 @@ public class MyRealm extends AuthorizingRealm {
 		if(!username.equals("admin"))
 			throw new RuntimeException("Only admin user configured.");
 		
-		Set<String> roles = new HashSet<String>();
-		roles.add("admin");
 		
+		// Look up roles.
+		//
+		SecurityService ss = new SecurityService();
+		List<Role> rolesList = ss.getUserRoles(username);
+		Set<String> roles = new HashSet<String>();
+		for(Role r : rolesList)
+			roles.add(r.getRolename());
+		
+		// Look up permissions.
+		//
+		List<Permission> permissionsList = ss.getUserPermissions(username);
 		Set<String> permissions = new HashSet<String>();
-		permissions.add("*");
+		for(Permission p : permissionsList)
+			permissions.add(p.getPermissionString());
 		
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roles);
 		info.setStringPermissions(permissions);

@@ -1,4 +1,4 @@
-package it.dariofabbri.test.addressbook.rest;
+package it.dariofabbri.test.addressbook.service.rest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.config.IniSecurityManagerFactory;
@@ -10,7 +10,7 @@ import com.sun.jersey.api.core.PackagesResourceConfig;
 public class Application extends PackagesResourceConfig {
 
 	public Application() {
-		super("it.dariofabbri.test.addressbook.rest.resource");
+		super("it.dariofabbri.test.addressbook.service.rest.resource");
 		
 		Factory<org.apache.shiro.mgt.SecurityManager> factory = 
 				new IniSecurityManagerFactory("classpath:shiro.ini");

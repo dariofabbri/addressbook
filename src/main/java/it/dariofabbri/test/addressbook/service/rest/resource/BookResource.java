@@ -1,7 +1,7 @@
-package it.dariofabbri.test.addressbook.rest.resource;
+package it.dariofabbri.test.addressbook.service.rest.resource;
 
 
-import it.dariofabbri.test.addressbook.rest.dto.BookDTO;
+import it.dariofabbri.test.addressbook.service.rest.dto.BookDTO;
 
 import java.util.ArrayList;
 import java.util.List;

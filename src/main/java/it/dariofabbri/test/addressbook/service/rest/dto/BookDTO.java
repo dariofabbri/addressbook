@@ -1,4 +1,4 @@
-package it.dariofabbri.test.addressbook.rest.dto;
+package it.dariofabbri.test.addressbook.service.rest.dto;
 
 
 

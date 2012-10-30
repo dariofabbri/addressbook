@@ -1,8 +1,8 @@
-package it.dariofabbri.test.addressbook.rest.resource;
+package it.dariofabbri.test.addressbook.service.rest.resource;
 
 
-import it.dariofabbri.test.addressbook.rest.dto.ContactDTO;
-import it.dariofabbri.test.addressbook.rest.dto.ContactsDTO;
+import it.dariofabbri.test.addressbook.service.rest.dto.ContactDTO;
+import it.dariofabbri.test.addressbook.service.rest.dto.ContactsDTO;
 
 import java.util.ArrayList;
 import java.util.List;

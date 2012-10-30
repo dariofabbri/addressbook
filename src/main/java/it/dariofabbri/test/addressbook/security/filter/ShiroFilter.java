@@ -1,6 +1,6 @@
-package it.dariofabbri.test.addressbook.rest.filter;
+package it.dariofabbri.test.addressbook.security.filter;
 
-import it.dariofabbri.test.addressbook.rest.resource.SecurityResource;
+import it.dariofabbri.test.addressbook.service.rest.resource.SecurityResource;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

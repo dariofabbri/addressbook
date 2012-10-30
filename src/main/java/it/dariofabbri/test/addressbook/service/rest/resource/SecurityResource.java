@@ -1,9 +1,9 @@
-package it.dariofabbri.test.addressbook.rest.resource;
+package it.dariofabbri.test.addressbook.service.rest.resource;
 
 
 import it.dariofabbri.test.addressbook.model.user.User;
-import it.dariofabbri.test.addressbook.rest.dto.CredentialsDTO;
-import it.dariofabbri.test.addressbook.rest.dto.TokenDTO;
+import it.dariofabbri.test.addressbook.service.rest.dto.CredentialsDTO;
+import it.dariofabbri.test.addressbook.service.rest.dto.TokenDTO;
 import it.dariofabbri.test.addressbook.util.HibernateUtil;
 
 import java.sql.Connection;

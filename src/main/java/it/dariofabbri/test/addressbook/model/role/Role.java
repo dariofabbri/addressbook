@@ -1,6 +1,7 @@
 package it.dariofabbri.test.addressbook.model.role;
 
 import it.dariofabbri.test.addressbook.model.permission.Permission;
+import it.dariofabbri.test.addressbook.model.user.User;
 
 import java.util.Set;
 
@@ -22,7 +23,7 @@ public class Role {
 	@Column(name="id")
 	private Integer id;
 	
-	@Column(name="username")
+	@Column(name="rolename")
 	private String rolename;
 	
 	@Column(name="description")
@@ -35,6 +36,14 @@ public class Role {
 			inverseJoinColumns = { @JoinColumn(name="permissionid", referencedColumnName="id")}
 	)
 	private Set<Permission> permissions;
+
+	@OneToMany(orphanRemoval=true)
+	@JoinTable(
+			name="sec_user_role",
+			joinColumns = { @JoinColumn(name="roleid", referencedColumnName="id")},
+			inverseJoinColumns = { @JoinColumn(name="userid", referencedColumnName="id")}
+	)
+	private Set<User> users;
 
 	public Integer getId() {
 		return id;
