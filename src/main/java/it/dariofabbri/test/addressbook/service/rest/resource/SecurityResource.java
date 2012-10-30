@@ -1,21 +1,11 @@
 package it.dariofabbri.test.addressbook.service.rest.resource;
 
 
-import it.dariofabbri.test.addressbook.model.user.User;
 import it.dariofabbri.test.addressbook.service.rest.dto.CredentialsDTO;
 import it.dariofabbri.test.addressbook.service.rest.dto.TokenDTO;
-import it.dariofabbri.test.addressbook.util.HibernateUtil;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -109,72 +99,4 @@ public class SecurityResource {
 					.build();		
 		}
 	}	
-	
-		
-		
-
-	@GET
-	@Path("/ds")
-	public Response getDs() {
-		
-		logger.debug("getDs called!");
-		
-		try {
-			InitialContext cxt = new InitialContext();
-			DataSource ds = (DataSource) cxt.lookup( "java:/comp/env/jdbc/ivncr" );
-		
-			if ( ds == null ) {
-			   throw new Exception("Data source not found!");
-			}
-			
-			Connection connection = ds.getConnection();
-			DatabaseMetaData dbmd = connection.getMetaData();
-			ResultSet rs = dbmd.getTables(null, null, null, null);
-			while(rs.next()) {
-				
-				System.out.println(String.format("%s.%s",
-						rs.getString("TABLE_SCHEM"),
-						rs.getString("TABLE_NAME")));
-				
-			}
-			rs.close();
-			
-			
-			Statement statement = connection.createStatement();
-			rs = statement.executeQuery("SELECT * FROM sec_user");
-			while(rs.next()) {
-				
-				System.out.println(String.format("(%d, %s, %s)", 
-						rs.getInt(1),
-						rs.getString(2),
-						rs.getString(3)));
-			}
-			
-			rs.close();
-			statement.close();
-			connection.close();
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return Response.ok().build();
-	}
-
-	@GET
-	@Path("/ds1")
-	public Response getDs1() {
-		
-		logger.debug("getDs1 called!");
-		
-		org.hibernate.Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		
-		User user = (User)session.load(User.class, new Integer(1));
-		System.out.println(user);
-		
-		session.close();
-		
-		return Response.ok().build();
-	}
 }
