@@ -2,13 +2,11 @@ package it.dariofabbri.test.addressbook.service.rest.resource;
 
 
 import it.dariofabbri.test.addressbook.model.contact.Contact;
+import it.dariofabbri.test.addressbook.service.local.QueryResult;
 import it.dariofabbri.test.addressbook.service.local.ServiceFactory;
 import it.dariofabbri.test.addressbook.service.local.contact.ContactService;
 import it.dariofabbri.test.addressbook.service.rest.dto.ContactDTO;
 import it.dariofabbri.test.addressbook.service.rest.dto.ContactsDTO;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -50,30 +48,22 @@ public class ContactResource {
 			return Response.status(Status.UNAUTHORIZED).entity("Operation not permitted.").build();
 		}
 		
-		if(offset == null) {
-			offset = 0;
-		}
-		
-		if(limit == null) {
-			limit = 10;
-		}
-		
 		// Execute query.
 		//
 		ContactService cs = ServiceFactory.createContactService();
-		List<Contact> list = cs.listContacts();
+		QueryResult<Contact> result = cs.listContacts(
+				firstName, 
+				lastName, 
+				phoneNumber, 
+				offset, 
+				limit);
 		
 		// Set up response.
 		//
-		ContactsDTO response = new ContactsDTO();
-		response.setOffset(offset);
-		response.setLimit(limit);
-		response.setRecords(list.size());
-		response.setResults(new ArrayList<ContactDTO>());
 		Mapper mapper = DozerBeanMapperSingletonWrapper.getInstance();
-        mapper.map(list, response.getResults());
+        ContactsDTO dto = mapper.map(result, ContactsDTO.class);
 		
-		return Response.ok().entity(response).build();
+		return Response.ok().entity(dto).build();
 	}
 	
 	@GET

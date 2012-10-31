@@ -2,25 +2,29 @@ package it.dariofabbri.test.addressbook.service.local.contact;
 
 import it.dariofabbri.test.addressbook.model.contact.Contact;
 import it.dariofabbri.test.addressbook.service.local.AbstractService;
-
-import java.util.List;
+import it.dariofabbri.test.addressbook.service.local.QueryResult;
 
 import org.hibernate.Query;
 
 public class ContactServiceImpl extends AbstractService implements ContactService {
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Contact> listContacts() {
+	public QueryResult<Contact> listContacts(
+			String firstName,
+			String lastName,
+			String phoneNumber,
+			Integer offset,
+			Integer limit) {
 
-		String hql =
-				"from Contact con ";
-		Query query = session.createQuery(hql);
-		List<Contact> list = query.list();
-		logger.debug("Contacts found: " + list);
+		QueryContactByFirstNameLastNamePhoneNumber q = new QueryContactByFirstNameLastNamePhoneNumber(session);
+
+		q.setFirstName(firstName);
+		q.setLastName(lastName);
+		q.setPhoneNumber(phoneNumber);
+		q.setOffset(offset);
+		q.setLimit(limit);
 		
-		return list;
-
+		return q.query();
 	}
 
 	@Override

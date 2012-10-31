@@ -1,13 +1,17 @@
 package it.dariofabbri.test.addressbook.service.local.contact;
 
 import it.dariofabbri.test.addressbook.model.contact.Contact;
+import it.dariofabbri.test.addressbook.service.local.QueryResult;
 import it.dariofabbri.test.addressbook.service.local.Service;
-
-import java.util.List;
 
 public interface ContactService extends Service {
 
-	List<Contact> listContacts();
+	QueryResult<Contact> listContacts(
+			String firstName,
+			String lastName,
+			String phoneNumber,
+			Integer offset,
+			Integer limit);
 
 	Contact retrieveContactById(Integer id);
 
