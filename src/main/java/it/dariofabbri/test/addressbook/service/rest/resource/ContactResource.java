@@ -24,6 +24,8 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.dozer.DozerBeanMapperSingletonWrapper;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,26 +58,20 @@ public class ContactResource {
 			limit = 10;
 		}
 		
+		// Execute query.
+		//
 		ContactService cs = ServiceFactory.createContactService();
 		List<Contact> list = cs.listContacts();
 		
-		List<ContactDTO> result = new ArrayList<ContactDTO>();
-		for(Contact contact : list) {
-			
-			ContactDTO cdto = new ContactDTO();
-			cdto.setId(contact.getId());
-			cdto.setFirstName(contact.getFirstName());
-			cdto.setLastName(contact.getLastName());
-			cdto.setPhoneNumber(contact.getPhoneNumber());
-			
-			result.add(cdto);
-		}
-		
+		// Set up response.
+		//
 		ContactsDTO response = new ContactsDTO();
 		response.setOffset(offset);
 		response.setLimit(limit);
 		response.setRecords(list.size());
-		response.setResults(result);
+		response.setResults(new ArrayList<ContactDTO>());
+		Mapper mapper = DozerBeanMapperSingletonWrapper.getInstance();
+        mapper.map(list, response.getResults());
 		
 		return Response.ok().entity(response).build();
 	}
@@ -93,8 +89,11 @@ public class ContactResource {
 		
 		ContactService cs = ServiceFactory.createContactService();
 		Contact contact = cs.retrieveContactById(id);
-		
-		return Response.ok().entity(contact).build();
+
+		Mapper mapper = DozerBeanMapperSingletonWrapper.getInstance();
+        ContactDTO dto = mapper.map(contact, ContactDTO.class);
+
+		return Response.ok().entity(dto).build();
 	}
 	
 	@DELETE

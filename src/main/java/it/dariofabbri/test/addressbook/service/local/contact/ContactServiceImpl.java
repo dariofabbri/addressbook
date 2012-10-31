@@ -39,8 +39,13 @@ public class ContactServiceImpl extends AbstractService implements ContactServic
 
 	@Override
 	public boolean deleteContactById(Integer id) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		Contact contact = retrieveContactById(id);
+		if(contact == null)
+			return false;
+		
+		session.delete(contact);
+		return true;
 	}
 
 	@Override
@@ -58,9 +63,18 @@ public class ContactServiceImpl extends AbstractService implements ContactServic
 	}
 
 	@Override
-	public boolean updateContact(Integer id, String firstName, String lastName,
-			String phoneNumber) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateContact(Integer id, String firstName, String lastName, String phoneNumber) {
+		
+		Contact contact = retrieveContactById(id);
+		if(contact == null)
+			return false;
+		
+		contact.setFirstName(firstName);
+		contact.setLastName(lastName);
+		contact.setPhoneNumber(phoneNumber);
+		
+		session.update(contact);
+		
+		return true;
 	}
 }
