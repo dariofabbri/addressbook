@@ -23,9 +23,10 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
 
-        <mapping class="it.dariofabbri.test.addressbook.model.user.User" />
-        <mapping class="it.dariofabbri.test.addressbook.model.role.Role" />
-        <mapping class="it.dariofabbri.test.addressbook.model.permission.Permission" />
+		<!-- Entities mappings -->
+        <mapping class="it.dariofabbri.test.addressbook.model.security.User" />
+        <mapping class="it.dariofabbri.test.addressbook.model.security.Role" />
+        <mapping class="it.dariofabbri.test.addressbook.model.security.Permission" />
         <mapping class="it.dariofabbri.test.addressbook.model.contact.Contact" />
 
     </session-factory>

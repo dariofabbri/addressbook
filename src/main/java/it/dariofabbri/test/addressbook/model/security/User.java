@@ -1,6 +1,5 @@
-package it.dariofabbri.test.addressbook.model.user;
+package it.dariofabbri.test.addressbook.model.security;
 
-import it.dariofabbri.test.addressbook.model.role.Role;
 
 import java.util.Set;
 

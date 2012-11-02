@@ -21,7 +21,7 @@ define([
 		
 		initialize: function(options) {
 			
-			this.collection.on("reset", this.render, this);
+			this.collection.on("all", this.render, this);
 			
 			if(options.baseUrl)
 				this.baseUrl = options.baseUrl;
@@ -30,6 +30,10 @@ define([
 				this.buttonsShown = options.buttonsShown;
 		},
 		
+		onClose: function() {
+			this.collection.off("all", this.render);
+		},
+
 		render: function() {
 
 			this.$el.html(_.template(pagerTemplate, { 

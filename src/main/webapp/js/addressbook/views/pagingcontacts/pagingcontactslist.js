@@ -10,24 +10,24 @@ define([
 	var view = Backbone.View.extend({
 		
 		tagName: "div",
-		
+
 		events: {
 			"click a#add": "addItem",
 			"click a#search": "search",
 			"click a#reset-filters": "resetFilters",
 		},
-		
+
 		initialize: function() {
 			this.collection.on("reset", this.render, this);
 		},
-		
+
 		onClose: function() {
 			this.collection.off("reset", this.render);
 		},
-		
+
 		childViews: [],
-		
-		render: function() {
+
+		render: function(e) {
 
 			this.cleanChildViews();
 			

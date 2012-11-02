@@ -1,6 +1,6 @@
 package it.dariofabbri.test.addressbook.service.local;
 
-import it.dariofabbri.test.addressbook.model.user.User;
+import it.dariofabbri.test.addressbook.model.security.User;
 import it.dariofabbri.test.addressbook.service.local.security.SecurityService;
 import it.dariofabbri.test.addressbook.util.HibernateUtil;
 

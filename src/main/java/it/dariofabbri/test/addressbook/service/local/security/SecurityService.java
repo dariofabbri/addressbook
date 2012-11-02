@@ -1,8 +1,8 @@
 package it.dariofabbri.test.addressbook.service.local.security;
 
-import it.dariofabbri.test.addressbook.model.permission.Permission;
-import it.dariofabbri.test.addressbook.model.role.Role;
-import it.dariofabbri.test.addressbook.model.user.User;
+import it.dariofabbri.test.addressbook.model.security.Permission;
+import it.dariofabbri.test.addressbook.model.security.Role;
+import it.dariofabbri.test.addressbook.model.security.User;
 import it.dariofabbri.test.addressbook.service.local.Service;
 
 import java.util.List;
